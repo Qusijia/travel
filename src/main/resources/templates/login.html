@@ -225,11 +225,12 @@
                 type: 'get',//规定请求的类型（GET 或 POST）。
                 success: function (data) {
                     if (data == '1') {
-                        location.href = "/admin";//转入后天
+                        location.href = "/admin";
                     } else if(data == '2'){
-                        location.href = "/visitor";
+
+                        layer.msg('用户名不存在')
                     } else{
-                        layer.msg('用户名或密码错误')
+                        layer.msg('密码错误')
 
                     }
                 }

@@ -1,6 +1,7 @@
 package com.example.travel.service;
 
 import com.example.travel.entity.User;
+import com.example.travel.entity.User_Role;
 
 import java.util.List;
 
@@ -32,5 +33,15 @@ public interface UserService {
     //通过name查找游客
 
     User findByName(String name);
+
+    //通过uid获取role
+
+    List<User_Role> getRole(int uid);
+
+    //通过uid获取权限
+
+    List<String> getPermission(int uid);
+    //添加角色
+    void addRole(int uid) ;
 
 }

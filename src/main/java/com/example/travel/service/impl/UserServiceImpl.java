@@ -1,6 +1,7 @@
 package com.example.travel.service.impl;
 
 import com.example.travel.entity.User;
+import com.example.travel.entity.User_Role;
 import com.example.travel.mapper.UserMapper;
 import com.example.travel.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,5 +48,20 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findByName(String name) {
         return userMapper.findByName(name);
+    }
+
+    @Override
+    public List<User_Role> getRole(int uid) {
+        return userMapper.getRole(uid);
+    }
+
+    @Override
+    public List<String> getPermission(int uid) {
+        return userMapper.getPermission(uid);
+    }
+
+    @Override
+    public void addRole(int uid) {
+        userMapper.addRole(uid);
     }
 }

@@ -8,7 +8,6 @@ public class User {
 	private int age;
 	private String phone;
 	private int lim;
-	private int role;// 角色，0为教务人员，1为学生，2为教师
 
 	@Override
 	public String toString() {
@@ -20,7 +19,6 @@ public class User {
 				", age=" + age +
 				", phone='" + phone + '\'' +
 				", lim=" + lim +
-				", role=" + role +
 				'}';
 	}
 
@@ -82,11 +80,5 @@ public class User {
 		this.lim = lim;
 	}
 
-	public int getRole() {
-		return role;
-	}
 
-	public void setRole(int role) {
-		this.role = role;
-	}
 }
