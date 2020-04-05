@@ -33,6 +33,11 @@ public interface TravelMapper {
     @Update("UPDATE travel SET name=#{name},line=#{line},day=#{day},money=#{money} WHERE id=#{id}")
      void modify(Travel t);
 
+    //查询用户参加的路线
+    @Select("SELECT * FROM travel t JOIN user_travel ut ON t.id = ut.tid WHERE ut.uname= #{name}")
+    List<Travel>  findByname(String name);
+
+
 
 }
 

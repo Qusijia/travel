@@ -7,12 +7,15 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 
-@RestController
+@Controller
 public class IndexController {
 
     @Autowired
@@ -27,11 +30,12 @@ public class IndexController {
 //    }
 //
 
-    @RequestMapping("/test")
-    public String test() {
-        System.out.println("visitor visitor visitor visitor");
-        return "1111111111========333333333333333";
-    }
+//    @RequestMapping("/test")
+//    @ResponseBody
+//    public String test() {
+//        System.out.println("visitor visitor visitor visitor");
+//        return "1111111111========333333333333333-------------------55555555555555555";
+//    }
     @RequestMapping("/visitor")
     public ModelAndView sShift() {
         System.out.println("visitor visitor visitor visitor");
@@ -67,6 +71,7 @@ public class IndexController {
 
         try {
             subject.login(token);
+            session.setAttribute("username",username);
         } catch (UnknownAccountException uae) {
             modelAndView.addObject("tips","*未知账户~");
             modelAndView.setViewName("index");
@@ -99,6 +104,7 @@ public class IndexController {
     }
 
     @RequestMapping("/yanzheng")
+    @ResponseBody
     public String yanzheng(@RequestBody User u) {
 
         System.out.println("555555555555555=====   ");
@@ -119,6 +125,22 @@ public class IndexController {
 
     @RequestMapping("/noAuth")
     public String noAuth(){
-        return "redirect:/noAuth";
+        return "noAuth";
     }
+
+    @RequestMapping("/toUser")
+    public ModelAndView toUser(HttpSession session) {
+        ModelAndView result = new ModelAndView();
+        User user = userService.findByName(session.getAttribute("username").toString());
+        result.setViewName("user/user");//转入注册界面
+        result.addObject("user",user);
+        return result;
+    }
+    @RequestMapping("/toTravel")
+    public ModelAndView toTravel() {
+        ModelAndView result = new ModelAndView();
+        result.setViewName("user/user_travel");//转入注册界面
+        return result;
+    }
+
 }

@@ -1,10 +1,13 @@
 package com.example.travel.entity;
-
+/*
+	游客报名表
+ */
 public class UT {
-	private String uname;
-	private int tid;
-	private String tname;
-	private int money;
+
+	private String uname;//游客名曾
+	private int tid;//线路id
+	private String tname;//线路名称
+	private int money;//所需费用
 	
 	@Override
 	public String toString() {

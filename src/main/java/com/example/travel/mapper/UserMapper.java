@@ -32,7 +32,7 @@ public interface UserMapper {
      User findById(int id);
 
     //游客信息修改
-    @Update("UPDATE travel SET name=#{name},password=#{password},gender=#{gender},age=#{age},phone=#{phone},lim=#{lim}")
+    @Update("UPDATE user SET name=#{name},password=#{password},gender=#{gender},age=#{age},phone=#{phone},lim=#{lim} WHERE id= #{id}")
      void modify(User u);
 
     //通过name查找用户

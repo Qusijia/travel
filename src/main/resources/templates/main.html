@@ -4,8 +4,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>layout 后台大布局 - Layui</title>
+    <title>旅行社管理</title>
     <link rel="stylesheet" href="../layui/css/layui.css">
+    <script th:src="@{/lib/js/jquery-3.4.1.min.js}"></script>
 </head>
 <style>
     .body{
@@ -45,8 +46,8 @@
                     <img src="http://t.cn/RCzsdCq" class="layui-nav-img" th:text="${name }"/>
                 </a>
                 <dl class="layui-nav-child">
-                    <dd class="main_left"><a  data-src="/visitor">个人中心</a></dd>
-<!--                    <dd class="main_left"><a href="">安全设置</a></dd>-->
+                    <dd class="main_left"><a  data-src="/toUser">个人中心</a></dd>
+                    <dd class="main_left"><a data-src="/toTravel">参团信息</a></dd>
                 </dl>
             </li>
             <li class="layui-nav-item"><a href="">退了</a></li>
@@ -61,11 +62,11 @@
                     <a class="" href="javascript:;">所有商品</a>
 
                     <dl class="layui-nav-child">
-                        <dd class="main_left"><a  data-src="/visitor">列表一</a></dd>
-                        <dd class="main_left"><a  data-src="/visitor">列表二</a></dd>
-                        <dd class="main_left"><a  data-src="/visitor">列表三</a></dd>
+                        <dd class="main_left"><a  data-src="/visitor" target="_top">列表一</a></dd>
+                        <dd class="main_left"><a  data-src="/visitor" target="_top">列表二</a></dd>
+                        <dd class="main_left"><a  data-src="/visitor" target="_top">列表三</a></dd>
                         <div shiro:hasPermission="add">
-                            <dd class="main_left"><a  data-src="/visitor">超链接</a></dd>
+                            <dd class="main_left"><a  data-src="/visitor" target="_top">超链接</a></dd>
                         </div>
                     </dl>
 
@@ -73,13 +74,13 @@
                 <li class="layui-nav-item">
                     <a href="javascript:;">解决方案</a>
                     <dl class="layui-nav-child">
-                        <dd class="main_left"><a  data-src="/test">列表一</a></dd>
-                        <dd class="main_left"><a  data-src="/test">列表二</a></dd>
-                        <dd class="main_left"><a  data-src="/test">超链接</a></dd>
+                        <dd class="main_left"><a  data-src="/test" target="_top">列表一</a></dd>
+                        <dd class="main_left"><a  data-src="/test" target="_top">列表二</a></dd>
+                        <dd class="main_left"><a  data-src="/test" target="_top">超链接</a></dd>
                     </dl>
                 </li>
-                <li class="layui-nav-item"><a href="/visitor">云市场</a></li>
-                <li class="layui-nav-item"><a href="/visitor">发布商品</a></li>
+                <li class="layui-nav-item"><a href="/visitor" target="_top">云市场</a></li>
+                <li class="layui-nav-item"><a href="/visitor" target="_top">发布商品</a></li>
             </ul>
         </div>
     </div>
@@ -108,7 +109,6 @@
     $(function(){
 
         $(".main_left a").on("click",function(){
-            alert("aaaaaaaaaaa")
             var address =$(this).attr("data-src");
             $("iframe").attr("src",address);
         });

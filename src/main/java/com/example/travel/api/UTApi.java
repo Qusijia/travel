@@ -2,9 +2,14 @@ package com.example.travel.api;
 
 import com.example.travel.entity.Travel;
 import com.example.travel.entity.UT;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Map;
 
 public interface UTApi {
 
@@ -13,12 +18,12 @@ public interface UTApi {
     List<UT> findAll();
 
     //通过游客名查找其报名的所有下路
-    @GetMapping("/ut/findByName/{name}")
-    List<UT> findByName(@PathVariable String name);
+    @GetMapping("/ut/findByName")
+    Map<String, Object> findByName(HttpSession session);
 
     //通过用户名与其所选线路将其删除（游客退订）
     @DeleteMapping("/ut/del")
-    void del(@RequestParam String uname, @RequestParam int tid);
+    String del(@RequestParam String uname, @RequestParam int tid);
 
     //用户报名的添加操作
     @PostMapping("/ut/add")

@@ -35,8 +35,11 @@ public class UserController implements UserApi {
     }
 
     @Override
-    public void modify(User u) {
+    public String modify(User u) {
+        System.out.println("22222222222");
         userService.modify(u);
+
+        return "1";
     }
 
     @Override

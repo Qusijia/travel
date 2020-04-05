@@ -3,7 +3,9 @@ package com.example.travel.api;
 import com.example.travel.entity.Travel;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Map;
 
 public interface TravelApi {
 
@@ -29,4 +31,8 @@ public interface TravelApi {
     //修改路线
     @PatchMapping("/travel/modify")
     void modify(@RequestBody Travel t);
+
+    //查询用户参加的路线
+    @GetMapping("/travel/findByname")
+    Map<String, Object> findByname(HttpSession session);
 }

@@ -43,4 +43,9 @@ public class TravelServiceImpl implements TravelService {
     public void modify(Travel t) {
         travelMapper.modify(t);
     }
+
+    @Override
+    public List<Travel> findByname(String name) {
+        return travelMapper.findByname(name);
+    }
 }

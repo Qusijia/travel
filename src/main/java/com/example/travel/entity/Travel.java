@@ -1,11 +1,15 @@
 package com.example.travel.entity;
 
+/*
+	路由线路表
+ */
 public class Travel {
+
 	private int id;
-	private String name;
-	private String line;
-	private int day;
-	private double money;
+	private String name;//线路名称
+	private String line;//具体线路
+	private int day;//所用天数
+	private double money;//所需费用
 	
 	@Override
 	public String toString() {

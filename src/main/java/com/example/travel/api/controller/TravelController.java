@@ -6,7 +6,10 @@ import com.example.travel.service.TravelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class TravelController implements TravelApi {
@@ -42,5 +45,15 @@ public class TravelController implements TravelApi {
     @Override
     public void modify(Travel t) {
         travelService.modify(t);
+    }
+
+    @Override
+    public Map<String, Object>  findByname(HttpSession session) {
+        List<Travel> date =  travelService.findByname(session.getAttribute("username").toString());
+        Map<String, Object> result = new HashMap<>();
+        result.put("data", date);
+        result.put("code", 0);
+        return result;
+
     }
 }

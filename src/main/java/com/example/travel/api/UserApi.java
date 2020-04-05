@@ -24,8 +24,8 @@ public interface UserApi {
     User findById(@PathVariable int id);
 
     //游客信息修改
-    @PatchMapping("/user/modify")
-    void modify(@RequestBody User u);
+    @PostMapping("/user/modify")
+    String modify(@RequestBody User u);
 
     //通过name查找游客
     @GetMapping("/user/findByContent/{name}")

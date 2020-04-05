@@ -1,13 +1,16 @@
 package com.example.travel.entity;
 
+/*
+   导游表
+ */
 public class Guide {
 	private int id;
-	private int lev;
+	private int lev;//导游级别
 	private String name;
 	private String gender;
 	private int age;
-	private String lan;
-	private String route;
+	private String lan;//擅长语言
+	private String route;//熟悉线路
 	
 	@Override
 	public String toString() {
