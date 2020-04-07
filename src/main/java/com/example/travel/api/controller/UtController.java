@@ -5,6 +5,7 @@ import com.example.travel.entity.Travel;
 import com.example.travel.entity.UT;
 import com.example.travel.service.UTService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
@@ -15,6 +16,8 @@ import java.util.Map;
  * @author qsj
  * @create 05 - 21:44
  */
+
+@Controller
 public class UtController implements UTApi {
 
     @Autowired
@@ -34,8 +37,9 @@ public class UtController implements UTApi {
     }
 
     @Override
-    public String del(String uname, int tid) {
-        utService.del(uname,tid);
+    public String del(int id , HttpSession session) {
+        System.out.println("1111111111111111");
+        utService.del(session.getAttribute("username").toString(),id);
         return "1";
     }
 

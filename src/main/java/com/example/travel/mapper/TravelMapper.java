@@ -38,6 +38,10 @@ public interface TravelMapper {
     List<Travel>  findByname(String name);
 
 
+    //获取导游总数
+    @Select("SELECT count(*) rows FROM travel")
+    int findRows();
+
 
 }
 

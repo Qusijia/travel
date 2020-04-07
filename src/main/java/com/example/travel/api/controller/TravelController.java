@@ -3,6 +3,8 @@ package com.example.travel.api.controller;
 import com.example.travel.api.TravelApi;
 import com.example.travel.entity.Travel;
 import com.example.travel.service.TravelService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -55,5 +57,22 @@ public class TravelController implements TravelApi {
         result.put("code", 0);
         return result;
 
+    }
+
+    @Override
+    public Map<String, Object> findAllPage(int page, int limit, String queryType, String query) {
+        int  count = travelService.findRows();
+        PageHelper.startPage(page,limit);
+        List<Travel> travels = travelService.findAll();
+        PageInfo<Travel> travelPageInfo = new PageInfo<Travel>(travels);
+        List<Travel> travelList = travelPageInfo.getList();
+
+        Map<String,Object> resultMap = new HashMap<String,Object>();
+        resultMap.put("code",0);
+        resultMap.put("msg","");
+        resultMap.put("count",count);
+        resultMap.put("data",travelList);
+
+        return resultMap;
     }
 }

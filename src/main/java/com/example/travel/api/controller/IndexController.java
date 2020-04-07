@@ -143,4 +143,18 @@ public class IndexController {
         return result;
     }
 
+    @RequestMapping("/index")
+    public ModelAndView Index() {
+        ModelAndView result = new ModelAndView();
+        result.setViewName("test");
+        return result;
+    }
+    @RequestMapping("/toTravelList")
+    public ModelAndView toTravelList() {
+        ModelAndView result = new ModelAndView();
+        result.setViewName("travel/travel");//转入线路界面
+        return result;
+    }
+
+
 }

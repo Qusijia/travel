@@ -59,12 +59,12 @@
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
             <ul class="layui-nav layui-nav-tree"  lay-filter="test">
                 <li class="layui-nav-item layui-nav-itemed">
-                    <a class="" href="javascript:;">所有商品</a>
+                    <a class="" href="javascript:;">线路信息</a>
 
                     <dl class="layui-nav-child">
-                        <dd class="main_left"><a  data-src="/visitor" target="_top">列表一</a></dd>
-                        <dd class="main_left"><a  data-src="/visitor" target="_top">列表二</a></dd>
-                        <dd class="main_left"><a  data-src="/visitor" target="_top">列表三</a></dd>
+                        <dd class="main_left"><a  data-src="/toTravelList" target="_top">线路信息</a></dd>
+<!--                        <dd class="main_left"><a  data-src="/visitor" target="_top">列表二</a></dd>-->
+<!--                        <dd class="main_left"><a  data-src="/visitor" target="_top">列表三</a></dd>-->
                         <div shiro:hasPermission="add">
                             <dd class="main_left"><a  data-src="/visitor" target="_top">超链接</a></dd>
                         </div>
@@ -87,7 +87,7 @@
 
     <div class="layui-body">
 
-        <iframe frameborder="0" scrolling="yes" style="width: 100%" src="" id="aa">
+        <iframe frameborder="0" scrolling="yes" style="width: 100%" src="/index" id="aa">
 
 
 

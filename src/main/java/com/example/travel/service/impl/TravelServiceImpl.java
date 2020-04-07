@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class TravelServiceImpl implements TravelService {
@@ -48,4 +49,11 @@ public class TravelServiceImpl implements TravelService {
     public List<Travel> findByname(String name) {
         return travelMapper.findByname(name);
     }
+
+    @Override
+    public int findRows() {
+        return travelMapper.findRows();
+    }
+
+
 }

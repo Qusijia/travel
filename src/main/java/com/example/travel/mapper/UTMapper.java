@@ -23,7 +23,7 @@ public interface UTMapper {
     List<UT> findByName(String name);
 
     //通过用户名与其所选线路将其删除（游客退订）
-    @Delete("DELETE FROM user_travel WHERE uname=  #{name} AND tid=  #{tid}")
+    @Delete("DELETE FROM user_travel WHERE uname=  #{uname} AND tid=  #{tid}")
     void del(String uname,int tid);
 
     //用户报名的添加操作

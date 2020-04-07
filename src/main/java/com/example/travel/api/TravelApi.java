@@ -35,4 +35,8 @@ public interface TravelApi {
     //查询用户参加的路线
     @GetMapping("/travel/findByname")
     Map<String, Object> findByname(HttpSession session);
+
+    @GetMapping("/travel/findAllPage")
+    //查询全部线路信息  @RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "limit", defaultValue = "10") int limit, @RequestParam(value = "queryType", defaultValue = "") String queryType, @RequestParam(value = "query", defaultValue = "") String query
+    public Map<String, Object> findAllPage(@RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "limit", defaultValue = "2") int limit, @RequestParam(value = "queryType", defaultValue = "") String queryType, @RequestParam(value = "query", defaultValue = "") String query);
 }

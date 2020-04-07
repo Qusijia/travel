@@ -30,4 +30,11 @@ public interface TravelService {
 
     List<Travel>  findByname(String name);
 
+    //获取线路总数
+
+    int findRows();
+
+//    //查询全部线路信息分页
+//    public Map<String, Object> findAllPage(int page, int limit, String query, String queryType);
+
 }

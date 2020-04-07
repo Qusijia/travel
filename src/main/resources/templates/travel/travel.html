@@ -3,7 +3,7 @@
       xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
 <head>
     <meta charset="UTF-8">
-    <title>参团列表</title>
+    <title>旅行线路列表</title>
 
     <link rel="stylesheet" th:href="@{/layui/css/layui.css}">
 
@@ -21,7 +21,7 @@
 
 
 <div class="table">
-    <h2 class="tablename">参团信息表</h2>
+    <h2 class="tablename">旅行线路列表</h2>
     <hr class="layui-bg-gray">
     <table class="layui-hide" id="ut" lay-filter="ut"></table>
 </div>
@@ -43,7 +43,9 @@
 <script src="../layui/layui.js"></script>
 <!--行工具栏-->
 <script type="text/html" id="toolbar">
-    <a class="layui-btn layui-btn-xs" lay-event="cancel">退订</a>
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail" >查看</a>
+    <a class="layui-btn layui-btn-xs" lay-event="sign">报名</a>
+
 </script>
 <script th:inline="none">
     layui.use(['table', 'jquery', 'layer', "form"], function () {
@@ -53,8 +55,8 @@
         table.render({
             elem: '#ut' // elem: document.getElementById('selectlist')
             , cellMinWidth: 80
-            , url: '/travel/findByname' //数据接口
-            , page: false
+            , url: '/travel/findAllPage' //数据接口
+            , page: true //开启分页
             , id: 'ut'
             , cols: [[ //表头
                 {field: 'id', title: 'ID', sort: true, fixed: 'left'},
@@ -71,27 +73,30 @@
             var data = obj.data;
             var layEvent = obj.event;
 
-            if (layEvent === 'cancel') {
-                layer.confirm('是否确认删除？', function(index) {
+            if (layEvent === 'sign') {
+                layer.confirm('是否确认报名？', function(index) {
                     obj.del(); //删除对应行（tr）的DOM结构
                     layer.close(index);
                     var id = obj.data.id;
-                    $.ajax({
-                        url: 'ut/del/' + id,//退选
-                        type: 'POST',
-                        success: function (msg) {
-                            if (msg == '1') {
-                                layer.msg("退订成功!", {
-                                    icon: 1,
-                                    time: 1000,
-                                    end: function () {
-                                        window.location.reload();
-                                    }
-                                });
-                            }
-                        }
-                    });
+                    // $.ajax({
+                    //     url: 'ut/del/' + id,//退选
+                    //     type: 'POST',
+                    //     success: function (msg) {
+                    //         if (msg == '1') {
+                    //             layer.msg("退订成功!", {
+                    //                 icon: 1,
+                    //                 time: 1000,
+                    //                 end: function () {
+                    //                     window.location.reload();
+                    //                 }
+                    //             });
+                    //         }
+                    //     }
+                    // });
+                    layer.msg("报名成功!");
                 });
+            } else if (layEvent === 'detail'){
+                layer.msg("查看成功!");
             }
         });
     });
