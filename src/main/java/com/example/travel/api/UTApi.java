@@ -25,7 +25,8 @@ public interface UTApi {
 
     //用户报名的添加操作
     @PostMapping("/ut/add")
-    Integer add(@RequestParam String uname, @RequestParam Travel t);
+    @ResponseBody
+    String add(@RequestBody Travel travel , HttpSession session);
 
     //通过用户名和tid查找
     @GetMapping("/ut/findByUT")

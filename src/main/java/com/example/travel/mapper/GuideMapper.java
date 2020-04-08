@@ -10,8 +10,8 @@ import java.util.List;
 @Mapper
 public interface GuideMapper {
 
-    //添加导游
-    @Insert("INSERT INTO guide values(#{lev},#{name},#{gender},#{age},#{route})")
+    //添加导游 (lev,name,gender,age,lan,route)
+    @Insert("INSERT INTO guide  (lev,name,gender,age,lan,route) values (#{lev},#{name},#{gender},#{age},#{lan},#{route})")
     void addGuide(Guide guide);
 
     //查询全部导游信息

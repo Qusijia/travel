@@ -3,11 +3,15 @@ package com.example.travel.api.controller;
 import com.example.travel.api.GuideApi;
 import com.example.travel.entity.Guide;
 import com.example.travel.service.GuideService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class GuideController implements GuideApi {
@@ -16,13 +20,27 @@ public class GuideController implements GuideApi {
     private GuideService guideService;
 
     @Override
-    public void addGuide(Guide guide) {
+    public String  addGuide(Guide guide) {
+        System.out.println(guide);
         guideService.addGuide(guide);
+        return "1";
     }
 
     @Override
-    public List<Guide> findAll() {
-        return guideService.findAll();
+    public Map<String, Object> findAll(int page, int limit, String queryType, String query , HttpSession session) {
+        PageHelper.startPage(page,limit);
+        List<Guide> guides = guideService.findAll();
+        int  count = guides.size();
+        PageInfo<Guide> guidePageInfo = new PageInfo<Guide>(guides);
+        List<Guide> guideList = guidePageInfo.getList();
+
+        Map<String,Object> resultMap = new HashMap<String,Object>();
+        resultMap.put("code",0);
+        resultMap.put("msg","");
+        resultMap.put("count",count);
+        resultMap.put("data",guideList);
+
+        return resultMap;
     }
 
     @Override
@@ -41,7 +59,9 @@ public class GuideController implements GuideApi {
     }
 
     @Override
-    public void modify(Guide guide) {
+    public String modify(Guide guide) {
         guideService.modify(guide);
+
+        return "1";
     }
 }

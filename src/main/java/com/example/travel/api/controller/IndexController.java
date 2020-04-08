@@ -1,13 +1,16 @@
 package com.example.travel.api.controller;
 
 
+import com.example.travel.entity.Guide;
 import com.example.travel.entity.User;
+import com.example.travel.service.GuideService;
 import com.example.travel.service.UserService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -21,6 +24,8 @@ public class IndexController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private GuideService guideService;
 //    @RequestMapping("/admin")
 //    public ModelAndView mShift(HttpSession session) {
 //        ModelAndView result = new ModelAndView();
@@ -155,6 +160,26 @@ public class IndexController {
         result.setViewName("travel/travel");//转入线路界面
         return result;
     }
+    @RequestMapping("/toGuide")
+    public ModelAndView toGuide() {
+        ModelAndView result = new ModelAndView();
+        result.setViewName("guide/guidelist");//转入线路界面
+        return result;
+    }
 
+    @RequestMapping("/toAddGuide")
+    public ModelAndView toAddGuide() {
+        ModelAndView result = new ModelAndView();
+        result.setViewName("guide/addguide");//转入线路界面
+        return result;
+    }
 
+    @RequestMapping("/toEditGuide/{id}")
+    public ModelAndView toEditGuide(@PathVariable int id) {
+        ModelAndView result = new ModelAndView();
+        Guide guide = guideService.findById(id);
+        result.setViewName("guide/editguide");//转入线路界面
+        result.addObject("guide",guide);
+        return result;
+    }
 }

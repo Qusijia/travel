@@ -27,7 +27,7 @@ public interface UTMapper {
     void del(String uname,int tid);
 
     //用户报名的添加操作
-    @Insert("INSERT INTO user_travel(uname,tid,tname,money)VALUES(#{name},#{tid},#{tname},#{money})")
+    @Insert("INSERT INTO user_travel(uname,tid,tname,money)VALUES(#{uname},#{t.id},#{t.name},#{t.money})")
     Integer add(String uname, Travel t);
 
     //通过用户名和tid查找

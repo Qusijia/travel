@@ -77,23 +77,24 @@
                 layer.confirm('是否确认报名？', function(index) {
                     obj.del(); //删除对应行（tr）的DOM结构
                     layer.close(index);
-                    var id = obj.data.id;
-                    // $.ajax({
-                    //     url: 'ut/del/' + id,//退选
-                    //     type: 'POST',
-                    //     success: function (msg) {
-                    //         if (msg == '1') {
-                    //             layer.msg("退订成功!", {
-                    //                 icon: 1,
-                    //                 time: 1000,
-                    //                 end: function () {
-                    //                     window.location.reload();
-                    //                 }
-                    //             });
-                    //         }
-                    //     }
-                    // });
-                    layer.msg("报名成功!");
+                    $.ajax({
+                        url: '/ut/add',//退选
+                        data: JSON.stringify(data),
+                        contentType : 'application/json',
+                        type: 'POST',
+                        success: function (msg) {
+                            if (msg == '1') {
+                                layer.msg("报名成功!", {
+                                    icon: 1,
+                                    time: 1000,
+                                    end: function () {
+                                        window.location.reload();
+                                    }
+                                });
+                            }
+                        }
+                    });
+                    //layer.msg("报名成功!");
                 });
             } else if (layEvent === 'detail'){
                 layer.msg("查看成功!");

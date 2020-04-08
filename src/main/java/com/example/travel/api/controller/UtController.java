@@ -44,8 +44,9 @@ public class UtController implements UTApi {
     }
 
     @Override
-    public Integer add(String uname, Travel t) {
-        return utService.add(uname,t);
+    public String add( Travel travel ,  HttpSession session) {
+        utService.add(session.getAttribute("username").toString(),travel);
+        return "1";
     }
 
     @Override

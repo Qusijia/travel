@@ -60,10 +60,10 @@ public class TravelController implements TravelApi {
     }
 
     @Override
-    public Map<String, Object> findAllPage(int page, int limit, String queryType, String query) {
-        int  count = travelService.findRows();
+    public Map<String, Object> findAllPage(int page, int limit, String queryType, String query ,HttpSession session) {
         PageHelper.startPage(page,limit);
-        List<Travel> travels = travelService.findAll();
+        List<Travel> travels = travelService.find(session.getAttribute("username").toString());
+        int  count = travels.size();
         PageInfo<Travel> travelPageInfo = new PageInfo<Travel>(travels);
         List<Travel> travelList = travelPageInfo.getList();
 

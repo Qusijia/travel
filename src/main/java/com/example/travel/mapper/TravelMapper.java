@@ -37,6 +37,12 @@ public interface TravelMapper {
     @Select("SELECT * FROM travel t JOIN user_travel ut ON t.id = ut.tid WHERE ut.uname= #{name}")
     List<Travel>  findByname(String name);
 
+    //查询用户未参加的路线  @Select("SELECT" +
+    //            " FROM travel t JOIN user_travel ut ON t.id = ut.tid WHERE t.ID NOT IN (" +
+    //            " SELECT   t.ID FROM travel t JOIN user_travel ut ON t.id = ut.tid WHERE " +
+    //            " ut.uname = 'tom') " +
+    //            " GROUP BY t.ID")
+
 
     //获取导游总数
     @Select("SELECT count(*) rows FROM travel")

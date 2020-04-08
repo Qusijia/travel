@@ -3,17 +3,19 @@ package com.example.travel.api;
 import com.example.travel.entity.Guide;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Map;
 
 public interface GuideApi {
 
     //添加导游
     @PostMapping("/guide/add")
-    void addGuide(@RequestBody Guide guide);
+    String addGuide(@RequestBody Guide guide);
 
     //查询全部导游信息
     @GetMapping("/guide/findall")
-    List<Guide> findAll();
+     Map<String, Object> findAll(@RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "limit", defaultValue = "2") int limit, @RequestParam(value = "queryType", defaultValue = "") String queryType, @RequestParam(value = "query", defaultValue = "") String query , HttpSession session);
 
     //根据搜索内容进行查询导游信息
     @GetMapping("/guide/findByContext")
@@ -28,6 +30,6 @@ public interface GuideApi {
     Guide findById(@PathVariable  int id);
 
     //修改导游信息
-    @PatchMapping("/guide/modify")
-    void modify(@RequestBody Guide guide);
+    @PostMapping("/guide/modify")
+    String modify(@RequestBody Guide guide);
 }
