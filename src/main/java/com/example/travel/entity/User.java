@@ -7,7 +7,7 @@ public class User {
 	private String gender;
 	private int age;
 	private String phone;
-	private int lim;
+	private int lim;//游客级别
 
 	@Override
 	public String toString() {

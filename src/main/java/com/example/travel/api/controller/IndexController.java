@@ -122,7 +122,7 @@ public class IndexController {
             }else{
             userService.save(u);
             User dbuser = userService.findByName(username);
-            userService.addRole(dbuser.getId());
+            userService.addRole(dbuser.getId(),dbuser.getPhone());
         }
             return "1";//注册成功
 

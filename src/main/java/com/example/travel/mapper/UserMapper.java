@@ -47,6 +47,6 @@ public interface UserMapper {
     List<String> getPermission(int uid);
 
     //添加客户
-    @Insert("INSERT INTO user_role (uid,rid) values (#{uid},1)")
-    void addRole(int uid) ;
+    @Insert("INSERT INTO user_role (uid,rid) values (#{uid},#{rid})")
+    void addRole(int uid , int rid) ;
 }

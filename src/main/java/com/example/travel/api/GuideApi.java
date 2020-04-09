@@ -11,11 +11,11 @@ public interface GuideApi {
 
     //添加导游
     @PostMapping("/guide/add")
-    String addGuide(@RequestBody Guide guide);
+    String addGuide(@RequestBody Guide guide );
 
     //查询全部导游信息
     @GetMapping("/guide/findall")
-     Map<String, Object> findAll(@RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "limit", defaultValue = "2") int limit, @RequestParam(value = "queryType", defaultValue = "") String queryType, @RequestParam(value = "query", defaultValue = "") String query , HttpSession session);
+     Map<String, Object> findAll(@RequestParam int page, @RequestParam int limit, @RequestParam(value = "queryType", defaultValue = "") String queryType, @RequestParam(value = "query", defaultValue = "") String query , HttpSession session);
 
     //根据搜索内容进行查询导游信息
     @GetMapping("/guide/findByContext")

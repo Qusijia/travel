@@ -2,7 +2,9 @@ package com.example.travel.api.controller;
 
 import com.example.travel.api.GuideApi;
 import com.example.travel.entity.Guide;
+import com.example.travel.entity.User;
 import com.example.travel.service.GuideService;
+import com.example.travel.service.UserService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +21,22 @@ public class GuideController implements GuideApi {
     @Autowired
     private GuideService guideService;
 
+    @Autowired
+    private UserService userService;
+
     @Override
     public String  addGuide(Guide guide) {
         System.out.println(guide);
         guideService.addGuide(guide);
+        User user = new User();
+        user.setLim(0);
+        user.setAge(guide.getAge());
+        user.setGender(guide.getGender());
+        user.setName(guide.getName());
+        user.setPassword("123456");
+        userService.save(user);
+        User dbuser = userService.findByName(guide.getName());
+        userService.addRole(dbuser.getId(),user.getPhone());
         return "1";
     }
 
@@ -31,6 +45,7 @@ public class GuideController implements GuideApi {
         PageHelper.startPage(page,limit);
         List<Guide> guides = guideService.findAll();
         int  count = guides.size();
+        System.out.println(count);
         PageInfo<Guide> guidePageInfo = new PageInfo<Guide>(guides);
         List<Guide> guideList = guidePageInfo.getList();
 

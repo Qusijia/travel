@@ -61,7 +61,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void addRole(int uid) {
-        userMapper.addRole(uid);
+    public void addRole(int uid , String phone) {
+        if(phone==null){
+            userMapper.addRole(uid,3);
+        }else{
+            userMapper.addRole(uid,1);
+        }
+
     }
 }

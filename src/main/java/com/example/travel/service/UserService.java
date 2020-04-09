@@ -42,6 +42,6 @@ public interface UserService {
 
     List<String> getPermission(int uid);
     //添加角色
-    void addRole(int uid) ;
+    void addRole(int uid,String phone) ;
 
 }
