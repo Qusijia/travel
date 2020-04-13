@@ -10,7 +10,7 @@ import java.util.List;
 @Mapper
 public interface TravelMapper {
 
-    @Select("SELECT * FROM travel WHERE name LIKE %#{name}%")
+    @Select("SELECT * FROM travel WHERE name LIKE  CONCAT('%',#{name},'%')")
      List<Travel> findByContent(String name) ;
 
     //查询所有线路

@@ -38,5 +38,5 @@ public interface TravelApi {
 
     @GetMapping("/travel/findAllPage")
     //查询全部线路信息  @RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "limit", defaultValue = "10") int limit, @RequestParam(value = "queryType", defaultValue = "") String queryType, @RequestParam(value = "query", defaultValue = "") String query
-    public Map<String, Object> findAllPage(@RequestParam int page, @RequestParam int limit, @RequestParam(value = "queryType", defaultValue = "") String queryType, @RequestParam(value = "query", defaultValue = "") String query ,HttpSession session);
+    public Map<String, Object> findAllPage(@RequestParam int page, @RequestParam int limit,  @RequestParam(value = "query", defaultValue = "") String query ,HttpSession session);
 }

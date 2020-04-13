@@ -22,6 +22,21 @@
 
 <div class="table">
     <h2 class="tablename">旅行线路列表</h2>
+    <div style="margin-left:400px">
+        关键字：
+        <div class="layui-inline">
+            <input class="layui-input" name="query" id="query" autocomplete="off">
+        </div>
+<!--        <span class="input-group-btn">-->
+<!--        <select name="queryType" id="queryType" class="layui-select">-->
+<!--            <option value="type" selected="selected">目的地</option>-->
+<!--            <option value="department">··</option>-->
+<!--            <option value="elective">选修类型</option>-->
+<!--            <option value="teacher">任课老师</option>-->
+<!--        </select>-->
+<!--    </span>-->
+        <button class="layui-btn layui-btn-sm" id="search">搜索</button>
+    </div>
     <hr class="layui-bg-gray">
     <table class="layui-hide" id="ut" lay-filter="ut"></table>
 </div>
@@ -99,6 +114,16 @@
             } else if (layEvent === 'detail'){
                 layer.msg("查看成功!");
             }
+        });
+
+        //搜索提交监听
+        $('#search').on('click', function () {
+            var query = $("#query").val();
+           // var queryType = $("#queryType option:selected").val();  , queryType: queryType
+            table.reload('ut', {
+                method: 'get',
+                where: {query: query}, page: {curr: 1}
+            });
         });
     });
 </script>

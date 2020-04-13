@@ -182,4 +182,46 @@ public class IndexController {
         result.addObject("guide",guide);
         return result;
     }
+
+    @RequestMapping("/toCeshi")
+    public ModelAndView toCeshi() {
+        ModelAndView result = new ModelAndView();
+        result.setViewName("ceshi/index");//转入线路界面
+        return result;
+    }
+
+    @RequestMapping("/toAbout")
+    public ModelAndView toAbout() {
+        ModelAndView result = new ModelAndView();
+        result.setViewName("ceshi/about");//转入线路界面
+        return result;
+    }
+
+    @RequestMapping("/toIcons")
+    public ModelAndView toIcons() {
+        ModelAndView result = new ModelAndView();
+        result.setViewName("ceshi/icons");//转入线路界面
+        return result;
+    }
+
+    @RequestMapping("/toTypography")
+    public ModelAndView toTypography() {
+        ModelAndView result = new ModelAndView();
+        result.setViewName("ceshi/typography");//转入线路界面
+        return result;
+    }
+
+    @RequestMapping("/toGallery")
+    public ModelAndView toGallery() {
+        ModelAndView result = new ModelAndView();
+        result.setViewName("ceshi/gallery");//转入线路界面
+        return result;
+    }
+
+    @RequestMapping("/toContact")
+    public ModelAndView toContact() {
+        ModelAndView result = new ModelAndView();
+        result.setViewName("ceshi/contact");//转入线路界面
+        return result;
+    }
 }

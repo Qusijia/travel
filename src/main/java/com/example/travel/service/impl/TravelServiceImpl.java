@@ -6,6 +6,7 @@ import com.example.travel.service.TravelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -55,8 +56,20 @@ public class TravelServiceImpl implements TravelService {
     }
 
     @Override
-    public List<Travel> find(String name) {
-        List<Travel> travelList = travelMapper.findAll();
+    public List<Travel> find(String name ,String query) {
+        System.out.println("111111111---  +  "+query.equals("") +"  ------");
+        List<Travel> travelList = new ArrayList<Travel>();
+        if(!query.equals("")){
+
+            System.out.println("findByContentfindByContentfindByContentfindByContent");
+            travelList=travelMapper.findByContent(query);
+
+        }else {
+            System.out.println("findAllfindAllfindAll");
+            travelList = travelMapper.findAll();
+
+        }
+
         List<Travel> travels = travelMapper.findByname(name);
         for (Travel t:travels) {
             int id = t.getId();

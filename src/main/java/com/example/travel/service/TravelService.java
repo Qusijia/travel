@@ -38,5 +38,5 @@ public interface TravelService {
 //    public Map<String, Object> findAllPage(int page, int limit, String query, String queryType);
 
     //查询用户未参加的路线
-    List<Travel>  find(String name);
+    List<Travel>  find(String name , String query);
 }
