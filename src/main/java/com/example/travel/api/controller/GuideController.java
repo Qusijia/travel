@@ -25,7 +25,7 @@ public class GuideController implements GuideApi {
     private UserService userService;
 
     @Override
-    public String  addGuide(Guide guide) {
+    public String addGuide(Guide guide) {
         System.out.println(guide);
         guideService.addGuide(guide);
         User user = new User();
@@ -37,7 +37,10 @@ public class GuideController implements GuideApi {
         userService.save(user);
         User dbuser = userService.findByName(guide.getName());
         userService.addRole(dbuser.getId(),user.getPhone());
-        return "1";
+//        ModelAndView result = new ModelAndView();
+//        result.setViewName("success");//转入游客界面
+//        return result;
+        return  "1";
     }
 
     @Override
@@ -55,6 +58,13 @@ public class GuideController implements GuideApi {
         resultMap.put("count",count);
         resultMap.put("data",guideList);
 
+        return resultMap;
+    }
+
+    @Override
+    public Map<String, Object> findAll() {
+        Map<String,Object> resultMap = new HashMap<String,Object>();
+        resultMap.put("data",guideService.findAll());
         return resultMap;
     }
 

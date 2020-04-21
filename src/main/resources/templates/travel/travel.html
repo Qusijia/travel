@@ -38,6 +38,9 @@
         <button class="layui-btn layui-btn-sm" id="search">搜索</button>
     </div>
     <hr class="layui-bg-gray">
+    <shiro:hasPermission name="add">
+        <a type="reset" class="layui-btn layui-btn-radius  layui-btn-primary" th:href="@{/toAddTravel}">添加</a>
+    </shiro:hasPermission>
     <table class="layui-hide" id="ut" lay-filter="ut"></table>
 </div>
 <script type="text/html" id="barDemo">
@@ -60,7 +63,9 @@
 <script type="text/html" id="toolbar">
     <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail" >查看</a>
     <a class="layui-btn layui-btn-xs" lay-event="sign">报名</a>
-
+    <shiro:hasPermission name="delete">
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    </shiro:hasPermission>
 </script>
 <script th:inline="none">
     layui.use(['table', 'jquery', 'layer', "form"], function () {
@@ -113,6 +118,8 @@
                 });
             } else if (layEvent === 'detail'){
                 layer.msg("查看成功!");
+            } else if (layEvent === 'del'){
+                layer.msg("删除成功!");
             }
         });
 

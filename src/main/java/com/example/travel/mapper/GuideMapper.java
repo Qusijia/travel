@@ -11,7 +11,7 @@ import java.util.List;
 public interface GuideMapper {
 
     //添加导游 (lev,name,gender,age,lan,route)
-    @Insert("INSERT INTO guide  (lev,name,gender,age,lan,route) values (#{lev},#{name},#{gender},#{age},#{lan},#{route})")
+    @Insert("INSERT INTO guide  (lev,name,gender,age,lan) values (#{lev},#{name},#{gender},#{age},#{lan})")
     void addGuide(Guide guide);
 
     //查询全部导游信息
@@ -35,7 +35,7 @@ public interface GuideMapper {
     Guide findById(int id);
 
     //修改导游信息
-    @Update("UPDATE guide set lev=#{lev},name=#{name},gender=#{gender},age=#{age},lan=#{lan},route=#{route} WHERE id=#{id}")
+    @Update("UPDATE guide set lev=#{lev},name=#{name},gender=#{gender},age=#{age},lan=#{lan} WHERE id=#{id}")
     void modify(Guide guide);
 
 

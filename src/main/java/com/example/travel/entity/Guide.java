@@ -10,13 +10,13 @@ public class Guide {
 	private String gender;
 	private int age;
 	private String lan;//擅长语言
-	private String route;//熟悉线路
+
 	
 	@Override
 	public String toString() {
 		return "guide [id=" + id + ", lev=" + lev + ", name=" + name
 				+ ", gender=" + gender + ", age=" + age + ", lan=" + lan
-				+ ", route=" + route + "]";
+				+ "]";
 	}
 	
 	
@@ -55,12 +55,6 @@ public class Guide {
 	}
 	public void setLan(String lan) {
 		this.lan = lan;
-	}
-	public String getRoute() {
-		return route;
-	}
-	public void setRoute(String route) {
-		this.route = route;
 	}
 	
 }

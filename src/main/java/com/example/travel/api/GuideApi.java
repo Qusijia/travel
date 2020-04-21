@@ -17,6 +17,10 @@ public interface GuideApi {
     @GetMapping("/guide/findall")
      Map<String, Object> findAll(@RequestParam int page, @RequestParam int limit, @RequestParam(value = "queryType", defaultValue = "") String queryType, @RequestParam(value = "query", defaultValue = "") String query , HttpSession session);
 
+    //查询全部导游信息
+   @GetMapping("/guide/findSelect")
+   Map<String, Object> findAll();
+
     //根据搜索内容进行查询导游信息
     @GetMapping("/guide/findByContext")
     List<Guide> findByContent(@RequestParam String str,@RequestParam String id);

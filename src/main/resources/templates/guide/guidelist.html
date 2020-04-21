@@ -6,13 +6,12 @@
     <title>导游信息列表</title>
 
     <link rel="stylesheet" th:href="@{/layui/css/layui.css}">
-
+    <script th:src="@{/lib/js/jquery-3.4.1.min.js}"></script>
 </head>
 
 <style>
 
 </style>
-
 
 
 <body>
@@ -23,29 +22,23 @@
 <div class="table">
     <h2 class="tablename">导游信息列表</h2>
     <hr class="layui-bg-gray">
+    <shiro:hasPermission name="add-guide">
+        <a type="reset" class="layui-btn layui-btn-radius  layui-btn-primary" th:href="@{/toAddGuide}">添加</a>
+    </shiro:hasPermission>
+    <br>
     <table class="layui-hide" id="ut" lay-filter="ut"></table>
 </div>
-<script type="text/html" id="barDemo">
-    <shiro:hasPermission name="retrieve">
-        <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail" >查看</a>
-    </shiro:hasPermission>
-
-<!--    <shiro:hasPermission name="update">-->
-<!--        <a class="layui-btn layui-btn-xs" lay-event="edit" id="edit">编辑</a>-->
-<!--    </shiro:hasPermission>-->
-
-    <shiro:hasPermission name="delete">
-        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
-    </shiro:hasPermission>
-
-</script>
 
 <script src="../layui/layui.js"></script>
 <!--行工具栏-->
 <script type="text/html" id="toolbar">
     <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail" >查看</a>
-    <shiro:hasPermission name="update">
+    <shiro:hasPermission name="update-guide">
+
         <a class="layui-btn layui-btn-xs" lay-event="edit" id="edit">编辑</a>
+    </shiro:hasPermission>
+    <shiro:hasPermission name="delete-guide">
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
     </shiro:hasPermission>
 
 </script>
@@ -53,13 +46,14 @@
     layui.use(['table', 'jquery', 'layer', "form"], function () {
         var table = layui.table;
         var $ = layui.jquery;
+        var layer = layui.layer;
         //渲染数据表格
         table.render({
             elem: '#ut' // elem: document.getElementById('selectlist')
             , cellMinWidth: 80
             , url: '/guide/findall' //数据接口
             , page: true //开启分页
-            ,toolbar: 'default'
+         //   ,toolbar: 'default'
             , id: 'ut'
             , cols: [[ //表头
                 {field: 'id', title: 'ID', sort: true, fixed: 'left'},
@@ -68,38 +62,13 @@
                 {field: 'gender', title: '性别'},
                 {field: 'age', title: '年龄'},
                 {field: 'lan', title: '擅长语言'},
-                {field: 'route', title: '熟悉线路'},
+                // {field: 'route', title: '熟悉线路'},
                 {fixed: 'right',title: '操作', align: 'center', toolbar: '#toolbar'}
             ]]
         });
-        //监听头工具栏事件
-        table.on('toolbar(ut)', function(obj){
-            var checkStatus = table.checkStatus(obj.config.id)
-                ,data = checkStatus.data; //获取选中的数据
-            switch(obj.event){
-                case 'add':
-                    location.href = "/toAddGuide";//转入后天
-                    break;
-                case 'update':
-                    if(data.length === 0){
-                        layer.msg('请选择一行');
-                    } else if(data.length > 1){
-                        layer.msg('只能同时编辑一个');
-                    } else {
-                        layer.alert('编辑 [id]：'+ checkStatus.data[0].id);
-                    }
-                    break;
-                case 'delete':
-                    if(data.length === 0){
-                        layer.msg('请选择一行');
-                    } else {
-                        layer.msg('删除');
-                    }
-                    break;
-            };
-        });
 
-        //行工具栏进行监听
+
+    //行工具栏进行监听
         table.on('tool(ut)', function (obj) {
             var $ = layui.jquery;
             var data = obj.data;
@@ -133,6 +102,8 @@
                     // });
                 location.href = "/toEditGuide/"+data.id;//转入后天
 
+            } else if (layEvent === 'del'){
+                layer.msg("删除成功!");
             }
         });
     });

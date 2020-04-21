@@ -160,6 +160,14 @@ public class IndexController {
         result.setViewName("travel/travel");//转入线路界面
         return result;
     }
+
+    @RequestMapping("/toAddTravel")
+    public ModelAndView toAddTravel() {
+        ModelAndView result = new ModelAndView();
+        result.setViewName("travel/addtravel");//转入线路界面
+        return result;
+    }
+
     @RequestMapping("/toGuide")
     public ModelAndView toGuide() {
         ModelAndView result = new ModelAndView();
@@ -182,6 +190,8 @@ public class IndexController {
         result.addObject("guide",guide);
         return result;
     }
+
+
 
     @RequestMapping("/toCeshi")
     public ModelAndView toCeshi() {
