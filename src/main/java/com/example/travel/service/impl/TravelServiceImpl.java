@@ -3,6 +3,7 @@ package com.example.travel.service.impl;
 import com.example.travel.entity.Travel;
 import com.example.travel.mapper.TravelMapper;
 import com.example.travel.service.TravelService;
+import com.example.travel.tool.GuideToTravel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -80,6 +81,29 @@ public class TravelServiceImpl implements TravelService {
            }
         }
         return travelList;
+    }
+
+    @Override
+    public List<GuideToTravel> LineFrom(int gid) {
+        List<Travel> travels=travelMapper.LineFrom(gid);
+        List<GuideToTravel> guideToTravels = new ArrayList<GuideToTravel>();
+        if(travels !=null) {
+            for (Travel travel : travels) {
+                GuideToTravel guideToTravel = new GuideToTravel(travel, travelMapper.LineNum(travel.getId()));
+                guideToTravels.add(guideToTravel);
+            }
+        }
+        return guideToTravels;
+    }
+
+    @Override
+    public int LineNum(int tid) {
+        return travelMapper.LineNum(tid);
+    }
+
+    @Override
+    public void delTravelAndGuide(int id) {
+        travelMapper.delTravelAndGuide(id);
     }
 
 

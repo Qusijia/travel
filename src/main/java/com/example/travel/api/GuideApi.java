@@ -1,6 +1,7 @@
 package com.example.travel.api;
 
 import com.example.travel.entity.Guide;
+import com.example.travel.tool.GuideVo;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
@@ -17,7 +18,7 @@ public interface GuideApi {
     @GetMapping("/guide/findall")
      Map<String, Object> findAll(@RequestParam int page, @RequestParam int limit, @RequestParam(value = "queryType", defaultValue = "") String queryType, @RequestParam(value = "query", defaultValue = "") String query , HttpSession session);
 
-    //查询全部导游信息
+    //查询全部导游信息下拉
    @GetMapping("/guide/findSelect")
    Map<String, Object> findAll();
 
@@ -25,9 +26,12 @@ public interface GuideApi {
     @GetMapping("/guide/findByContext")
     List<Guide> findByContent(@RequestParam String str,@RequestParam String id);
 
+    @GetMapping("/guide/findBySelect")
+    List<GuideVo> findBySelect();
+
     //根据id删除导游信息
-    @DeleteMapping("/guide/del/{id}")
-    void del(@PathVariable int id);
+    @PostMapping("/guide/del/{id}")
+    String del(@PathVariable int id );
 
     //根据id查询导游信息
     @GetMapping("/guide/findById/{id}")

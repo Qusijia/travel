@@ -77,10 +77,6 @@ public class IndexController {
         try {
             subject.login(token);
             session.setAttribute("username",username);
-        } catch (UnknownAccountException uae) {
-            modelAndView.addObject("tips","*未知账户~");
-            modelAndView.setViewName("index");
-            return modelAndView;
         } catch (IncorrectCredentialsException ice) {
             modelAndView.addObject("tips","*密码不正确~");
             modelAndView.setViewName("index");
@@ -191,6 +187,13 @@ public class IndexController {
         return result;
     }
 
+    @RequestMapping("/toLine")
+    public ModelAndView toLine() {
+        ModelAndView result = new ModelAndView();
+        result.setViewName("travel/lineForm");//转入线路界面
+        return result;
+    }
+
 
 
     @RequestMapping("/toCeshi")
@@ -232,6 +235,14 @@ public class IndexController {
     public ModelAndView toContact() {
         ModelAndView result = new ModelAndView();
         result.setViewName("ceshi/contact");//转入线路界面
+        return result;
+    }
+
+    //测试下拉
+    @RequestMapping("/toText")
+    public ModelAndView toText() {
+        ModelAndView result = new ModelAndView();
+        result.setViewName("text");//转入线路界面
         return result;
     }
 }

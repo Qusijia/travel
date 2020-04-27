@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="UTF-8">
+    <title>线路报表</title>
+</head>
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}">
+    <script th:src="@{/lib/js/jquery-3.4.1.min.js}"></script>
+<body>
+
+<table class="layui-hide" id="ut" lay-filter="ut"></table>
+
+<script src="../layui/layui.js"></script>
+<!--行工具栏-->
+<script type="text/html" id="toolbar">
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail" >参与用户</a>
+</script>
+<script th:inline="none">
+    layui.use(['table', 'jquery', 'layer', "form"], function () {
+        var table = layui.table;
+        var $ = layui.jquery;
+        //渲染数据表格
+        table.render({
+            elem: '#ut' // elem: document.getElementById('selectlist')
+            , cellMinWidth: 80
+            , url: '/travel/LineFrom' //数据接口
+            , page: true //开启分页
+            , id: 'ut'
+            , cols: [[ //表头
+                {field: 'id', title: 'ID', sort: true, fixed: 'left'},
+                {field: 'name', title: '线路名称'},
+                {field: 'line', title: '具体线路'},
+                {field: 'day', title: '所需天数'},
+                {field: 'money', title: '所需费用'},
+                {field: 'num', title: '报名人数'},
+                {fixed: 'right', title: '操作', align: 'center', toolbar: '#toolbar'}
+            ]]
+        });
+
+        //行工具栏进行监听
+        table.on('tool(ut)', function (obj) {
+            var $ = layui.jquery;
+            var data = obj.data;
+            var layEvent = obj.event;
+            if (layEvent === 'detail'){
+                layer.msg("查看成功!");
+            }
+        });
+
+    });
+
+</script>
+
+
+</body>
+
+</html>

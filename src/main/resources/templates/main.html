@@ -40,6 +40,24 @@
 <!--                </dl>-->
 <!--            </li>-->
 <!--        </ul>-->
+
+        <ul class="layui-nav layui-layout-left"  lay-filter="test">
+            <li class="layui-nav-item layui-nav-itemed">
+                <dd class="main_left"> <a  data-src="/index" target="_top">首页</a>
+            </li>
+<!--            <li class="layui-nav-item">-->
+<!--                <a href="javascript:;">导游信息</a>-->
+<!--                <dl class="layui-nav-child">-->
+<!--                    <dd class="main_left"><a  data-src="/toGuide" target="_top">导游信息</a></dd>-->
+<!--                    <dd class="main_left"><a  data-src="" target="_top">负责线路</a></dd>-->
+<!--                    <dd class="main_left"><a  data-src="toCeshi" target="_top">测试</a></dd>-->
+<!--                    <dd class="main_left"><a  data-src="/test" target="_top">超链接</a></dd>-->
+<!--                </dl>-->
+<!--            </li>-->
+<!--            <li class="layui-nav-item"><a href="/visitor" target="_top">云市场</a></li>-->
+<!--            <li class="layui-nav-item"><a href="/toText" target="_top">发布商品</a></li>-->
+        </ul>
+
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item">
                 <a href="javascript:;">
@@ -48,10 +66,14 @@
                 <dl class="layui-nav-child">
                     <dd class="main_left"><a  data-src="/toUser">个人中心</a></dd>
                     <dd class="main_left"><a data-src="/toTravel">参团信息</a></dd>
+                    <shiro:hasPermission name="line-guide">
+                        <dd class="main_left"><a data-src="/toLine">负责线路</a></dd>
+                    </shiro:hasPermission>
                 </dl>
             </li>
             <li class="layui-nav-item"><a href="">退了</a></li>
         </ul>
+
     </div>
 
     <div class="layui-side layui-bg-black">
@@ -59,22 +81,23 @@
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
             <ul class="layui-nav layui-nav-tree"  lay-filter="test">
                 <li class="layui-nav-item layui-nav-itemed">
-                    <a class="" href="javascript:;">线路信息</a>
+                    <dd class="main_left"> <a  data-src="/toTravelList" target="_top">线路信息</a>
 
-                    <dl class="layui-nav-child">
-                        <dd class="main_left"><a  data-src="/toTravelList" target="_top">线路信息</a></dd>
-<!--                        <dd class="main_left"><a  data-src="/visitor" target="_top">列表二</a></dd>-->
-<!--                        <dd class="main_left"><a  data-src="/visitor" target="_top">列表三</a></dd>-->
-                        <div shiro:hasPermission="add">
-                            <dd class="main_left"><a  data-src="/visitor" target="_top">超链接</a></dd>
-                        </div>
-                    </dl>
+<!--                    <dl class="layui-nav-child">-->
+<!--                        <dd class="main_left"><a  data-src="/toTravelList" target="_top">线路信息</a></dd>-->
+<!--&lt;!&ndash;                        <dd class="main_left"><a  data-src="/visitor" target="_top">列表二</a></dd>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <dd class="main_left"><a  data-src="/visitor" target="_top">列表三</a></dd>&ndash;&gt;-->
+<!--                        <div shiro:hasPermission="add">-->
+<!--                            <dd class="main_left"><a  data-src="/visitor" target="_top">超链接</a></dd>-->
+<!--                        </div>-->
+<!--                    </dl>-->
 
                 </li>
                 <li class="layui-nav-item">
                     <a href="javascript:;">导游信息</a>
                     <dl class="layui-nav-child">
                         <dd class="main_left"><a  data-src="/toGuide" target="_top">导游信息</a></dd>
+                        <dd class="main_left"><a  data-src="" target="_top">负责线路</a></dd>
                         <dd class="main_left"><a  data-src="toCeshi" target="_top">测试</a></dd>
                         <dd class="main_left"><a  data-src="/test" target="_top">超链接</a></dd>
                     </dl>

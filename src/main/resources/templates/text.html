@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>线路添加页面</title>
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}">
+    <link rel="stylesheet" th:href="@{lib/css/main.css}">
+    <link rel="stylesheet" th:href="@{/lib/css/public.css}">
+    <script th:src="@{/lib/js/jquery-3.4.1.min.js}"></script>
+    <script th:src="@{/layui/layui.js}"></script>
+    <style>
+
+        .layui-form input{
+            width:215px;
+        }
+        .body{
+            margin-left: 200px;
+            height:800px;
+        }
+        #image2{
+            wdith:100px;
+            height: 100px;
+        }
+        .layui-upload-list{
+            margin-left: 120px;
+
+        }
+        .layui-upload-img{
+            wdith:100px;
+            height: 100px;
+        }
+        body{
+            background-image: url("images/background/page_bg.JPG");
+            background-size: 100%;
+
+        }
+    </style>
+
+
+</head>
+<body>
+
+
+4564484
+
+
+<script>
+    layui.use(['form', 'layedit', 'jquery','laydate'], function(){
+
+
+
+
+        var $ = layui.jquery
+        var form = layui.form
+        $.ajax({
+            url: '/guide/findBySelect',
+            dataType: 'json',
+            type: 'get',
+            success: function(data) {
+                alert(data);
+            }
+        });
+
+
+
+
+    });
+</script>
+
+</body>
+</html>

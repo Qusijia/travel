@@ -1,6 +1,7 @@
 package com.example.travel.service;
 
 import com.example.travel.entity.Travel;
+import com.example.travel.tool.GuideToTravel;
 
 import java.util.List;
 
@@ -37,6 +38,16 @@ public interface TravelService {
 //    //查询全部线路信息分页
 //    public Map<String, Object> findAllPage(int page, int limit, String query, String queryType);
 
+
     //查询用户未参加的路线
     List<Travel>  find(String name , String query);
+
+    //查询导游负责线路统计信息
+    List<GuideToTravel> LineFrom(int gid);
+
+    //某路线报名人数
+    int LineNum(int tid);
+
+    //删除线路关联的导游负责
+    void delTravelAndGuide(int id) ;
 }

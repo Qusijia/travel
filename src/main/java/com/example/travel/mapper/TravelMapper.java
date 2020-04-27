@@ -49,5 +49,18 @@ public interface TravelMapper {
     int findRows();
 
 
+    //查询导游负责线路统计信息
+    //查询用户参加的路线
+    @Select("SELECT * FROM travel t JOIN travel_guide ut ON t.id = ut.tid WHERE ut.gid= #{gid}")
+    List<Travel> LineFrom(int gid);
+
+    //某路线报名人数
+    @Select("SELECT count(*) rows FROM user_travel WHERE tid = #{tid}")
+    int LineNum(int tid);
+
+    //删除线路关联的导游负责
+    @Delete("DELETE FROM travel_guide WHERE tid=#{id}")
+    void delTravelAndGuide(int id) ;
+
 }
 

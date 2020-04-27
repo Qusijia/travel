@@ -124,7 +124,7 @@
 </div>
 
 <script>
-    layui.use(['form', 'layedit', 'laydate'], function(){
+    layui.use(['form', 'layedit','jquery','layer', 'laydate'], function(){
         var form = layui.form
             ,layer = layui.layer
             ,layedit = layui.layedit
@@ -169,7 +169,7 @@
                             }, 1000);
                         });
 
-                        location.href = "/toGuide";//转入后天
+                        location.href = "/toTravel";//转入后天
                     }
                 }
             })
@@ -177,18 +177,19 @@
         })
 
 
-            var $ = layui.jquery
-            var form = layui.form
-            $.ajax({
+
+        var tbody = "";
+        $.ajax({
                 url: '/guide/findSelect',
                 dataType: 'json',
                 type: 'get',
                 success: function(data) {
                     if (data!== null) {
+                        var result = JSON.parse(data);
                         $("#service").empty();
-                        $("#service").append(new Option("请选择", "0"));
-                        $.each(data, function(index, item) {
-                            $('#service').append(new Option(item.name, item.id));
+                        $("#service").append(new Option("请选择12", "0"));
+                        $.each(result, function(index, item) {
+                            $("#service").append("<option value="+item.id+">"+item.name+"</option>");
                         });
                     } else {
                         $("#service").append(new Option("暂无数据", ""));

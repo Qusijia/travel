@@ -4,7 +4,9 @@ import com.example.travel.api.GuideApi;
 import com.example.travel.entity.Guide;
 import com.example.travel.entity.User;
 import com.example.travel.service.GuideService;
+import com.example.travel.service.TravelService;
 import com.example.travel.service.UserService;
+import com.example.travel.tool.GuideVo;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,9 @@ public class GuideController implements GuideApi {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private TravelService travelService;
 
     @Override
     public String addGuide(Guide guide) {
@@ -64,7 +69,7 @@ public class GuideController implements GuideApi {
     @Override
     public Map<String, Object> findAll() {
         Map<String,Object> resultMap = new HashMap<String,Object>();
-        resultMap.put("data",guideService.findAll());
+        resultMap.put("data",guideService.findSelect());
         return resultMap;
     }
 
@@ -74,8 +79,24 @@ public class GuideController implements GuideApi {
     }
 
     @Override
-    public void del(int id) {
-        guideService.del(id);
+    public List<GuideVo> findBySelect() {
+        return guideService.findSelect();
+    }
+
+    @Override
+    public String del(int id ) {
+
+
+        Guide guide = guideService.findById(id);
+        System.out.println(travelService.LineFrom(id)+"  33333333   "+travelService.findByname(guide.getName()));
+        if(travelService.LineFrom(id).size()==0 &&
+                travelService.findByname(guide.getName()).size()==0){
+            guideService.del(id);
+            System.out.println("1111111111111");
+            return "1";//删除
+        }
+        System.out.println("2222222222");
+        return "2";//不能删除
     }
 
     @Override

@@ -34,6 +34,10 @@ public interface GuideMapper {
     @Select("SELECT * FROM guide WHERE id=#{id}")
     Guide findById(int id);
 
+    //根据name查询导游信息
+    @Select("SELECT * FROM guide WHERE name=#{name}")
+    Guide findByName(String name);
+
     //修改导游信息
     @Update("UPDATE guide set lev=#{lev},name=#{name},gender=#{gender},age=#{age},lan=#{lan} WHERE id=#{id}")
     void modify(Guide guide);
