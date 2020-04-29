@@ -18,7 +18,7 @@ public interface TravelMapper {
      List<Travel> findAll();
 
     //添加线路
-    @Insert("INSERT INTO travel VALUES(#{name},#{line},#{day},#{money})")
+    @Insert("INSERT INTO travel (name,line,day,money) VALUES(#{name},#{line},#{day},#{money})")
      void save(Travel t);
 
     //删除线路

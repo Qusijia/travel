@@ -35,8 +35,10 @@ public class TravelController implements TravelApi {
     }
 
     @Override
-    public void save(Travel t) {
+    public String save( Travel t , String  service) {
+            System.out.println("  --"+service+"--  ");
         travelService.save(t);
+        return "1";
     }
 
     @Override
@@ -77,14 +79,13 @@ public class TravelController implements TravelApi {
     public Map<String, Object> findAllPage(int page, int limit, String query ,HttpSession session) {
         PageHelper.startPage(page,limit);
         List<Travel> travels = travelService.find(session.getAttribute("username").toString(),query);
-        int  count = travels.size();
         PageInfo<Travel> travelPageInfo = new PageInfo<Travel>(travels);
         List<Travel> travelList = travelPageInfo.getList();
 
         Map<String,Object> resultMap = new HashMap<String,Object>();
         resultMap.put("code",0);
         resultMap.put("msg","");
-        resultMap.put("count",count);
+        resultMap.put("count",travelPageInfo.getTotal());
         resultMap.put("data",travelList);
 
         return resultMap;

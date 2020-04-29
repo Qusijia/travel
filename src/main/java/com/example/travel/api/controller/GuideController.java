@@ -6,11 +6,11 @@ import com.example.travel.entity.User;
 import com.example.travel.service.GuideService;
 import com.example.travel.service.TravelService;
 import com.example.travel.service.UserService;
-import com.example.travel.tool.GuideVo;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
@@ -49,18 +49,16 @@ public class GuideController implements GuideApi {
     }
 
     @Override
-    public Map<String, Object> findAll(int page, int limit, String queryType, String query , HttpSession session) {
+    public Map<String, Object> findAll(int page, int limit,String queryType, String query , HttpSession session) {
         PageHelper.startPage(page,limit);
-        List<Guide> guides = guideService.findAll();
-        int  count = guides.size();
-        System.out.println(count);
+        List<Guide> guides = guideService.findByContent(queryType,query);
         PageInfo<Guide> guidePageInfo = new PageInfo<Guide>(guides);
         List<Guide> guideList = guidePageInfo.getList();
 
         Map<String,Object> resultMap = new HashMap<String,Object>();
         resultMap.put("code",0);
         resultMap.put("msg","");
-        resultMap.put("count",count);
+        resultMap.put("count",guidePageInfo.getTotal());
         resultMap.put("data",guideList);
 
         return resultMap;
@@ -73,14 +71,17 @@ public class GuideController implements GuideApi {
         return resultMap;
     }
 
-    @Override
-    public List<Guide> findByContent(String str, String id) {
-        return guideService.findByContent(str,id);
-    }
+//    @Override
+//    public List<Guide> findByContent(String str, String id) {
+//        return guideService.findByContent(str,id);
+//    }
 
     @Override
-    public List<GuideVo> findBySelect() {
-        return guideService.findSelect();
+    public ModelAndView findBySelect() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("guides",guideService.findSelect());
+        modelAndView.addObject("aa","aa");
+        return modelAndView;
     }
 
     @Override

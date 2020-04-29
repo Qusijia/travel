@@ -1,6 +1,7 @@
 
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -66,12 +67,9 @@
                 <dl class="layui-nav-child">
                     <dd class="main_left"><a  data-src="/toUser">个人中心</a></dd>
                     <dd class="main_left"><a data-src="/toTravel">参团信息</a></dd>
-                    <shiro:hasPermission name="line-guide">
-                        <dd class="main_left"><a data-src="/toLine">负责线路</a></dd>
-                    </shiro:hasPermission>
                 </dl>
             </li>
-            <li class="layui-nav-item"><a href="">退了</a></li>
+            <li class="layui-nav-item"><a href="quite">退了</a></li>
         </ul>
 
     </div>
@@ -97,7 +95,9 @@
                     <a href="javascript:;">导游信息</a>
                     <dl class="layui-nav-child">
                         <dd class="main_left"><a  data-src="/toGuide" target="_top">导游信息</a></dd>
-                        <dd class="main_left"><a  data-src="" target="_top">负责线路</a></dd>
+                        <shiro:hasPermission name="line-guide">
+                            <dd class="main_left"><a data-src="/toLine">负责线路</a></dd>
+                        </shiro:hasPermission>
                         <dd class="main_left"><a  data-src="toCeshi" target="_top">测试</a></dd>
                         <dd class="main_left"><a  data-src="/test" target="_top">超链接</a></dd>
                     </dl>

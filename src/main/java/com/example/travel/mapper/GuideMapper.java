@@ -22,9 +22,9 @@ public interface GuideMapper {
     @Select("SELECT count(*) rows FROM guide")
     int findRows();
 
-    //根据搜索内容进行查询导游信息
+    //根据搜索内容进行查询导游信息  //    @Select("SELECT * FROM guide WHERE name LIKE  CONCAT('%',#{query},'%')")
     @SelectProvider(method = "findByContent", type = GuideMapper.GuideSqlBuilders.class)
-    List<Guide> findByContent(String str,String id);
+    List<Guide> findByContent(String queryType,String query);
 
     //根据id删除导游信息
     @Delete("DELETE FROM guide WHERE id=#{id}")
@@ -46,10 +46,11 @@ public interface GuideMapper {
 
     class GuideSqlBuilders {
 
-        public String findByContent(String str,String id) {
+        public String findByContent(String queryType,String query) {
             StringBuilder sql = new StringBuilder();
             sql.append(" SELECT * FROM guide ");
-            sql.append("  WHERE "+str+" = "+id );
+            sql.append("  WHERE "+queryType+"  "+query );
+            System.out.println(sql.toString());
             return sql.toString();
         }
 

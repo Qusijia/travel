@@ -1,11 +1,10 @@
 package com.example.travel.api;
 
 import com.example.travel.entity.Guide;
-import com.example.travel.tool.GuideVo;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
-import java.util.List;
 import java.util.Map;
 
 public interface GuideApi {
@@ -16,18 +15,18 @@ public interface GuideApi {
 
     //查询全部导游信息
     @GetMapping("/guide/findall")
-     Map<String, Object> findAll(@RequestParam int page, @RequestParam int limit, @RequestParam(value = "queryType", defaultValue = "") String queryType, @RequestParam(value = "query", defaultValue = "") String query , HttpSession session);
+     Map<String, Object> findAll(@RequestParam int page, @RequestParam int limit , @RequestParam(value = "queryType", defaultValue = "") String queryType ,@RequestParam(value = "query", defaultValue = "") String query , HttpSession session);
 
     //查询全部导游信息下拉
    @GetMapping("/guide/findSelect")
    Map<String, Object> findAll();
 
-    //根据搜索内容进行查询导游信息
-    @GetMapping("/guide/findByContext")
-    List<Guide> findByContent(@RequestParam String str,@RequestParam String id);
+//    //根据搜索内容进行查询导游信息
+//    @GetMapping("/guide/findByContext")
+//    List<Guide> findByContent(@RequestParam String str,@RequestParam String id);
 
     @GetMapping("/guide/findBySelect")
-    List<GuideVo> findBySelect();
+    ModelAndView findBySelect();
 
     //根据id删除导游信息
     @PostMapping("/guide/del/{id}")

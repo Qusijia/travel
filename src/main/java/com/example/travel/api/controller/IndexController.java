@@ -48,7 +48,15 @@ public class IndexController {
         result.setViewName("test");//转入游客界面
         return result;
     }
+    //退出登录
+    @RequestMapping("/quite")
+    public String quite(HttpSession session){
+        session.removeAttribute("username");
+        Subject currentUser = SecurityUtils.getSubject();
+        currentUser.logout();
 
+        return "redirect:/";
+    }
 
     @RequestMapping("/mindex")
     public ModelAndView mIndex() {

@@ -18,7 +18,7 @@ public interface TravelApi {
 
     //添加线路
     @PostMapping("/travel/save")
-    void save(@RequestBody Travel t);
+    String save(@RequestBody Travel t ,@RequestParam(value = "service", defaultValue = "") String  service);
 
     //删除线路
     @PostMapping("/travel/del/{id}")
