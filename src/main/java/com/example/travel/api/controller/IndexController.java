@@ -2,11 +2,17 @@ package com.example.travel.api.controller;
 
 
 import com.example.travel.entity.Guide;
+import com.example.travel.entity.Travel;
 import com.example.travel.entity.User;
 import com.example.travel.service.GuideService;
+import com.example.travel.service.TravelService;
+import com.example.travel.service.UTService;
 import com.example.travel.service.UserService;
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.*;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.ExcessiveAttemptsException;
+import org.apache.shiro.authc.IncorrectCredentialsException;
+import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,6 +32,12 @@ public class IndexController {
 
     @Autowired
     private GuideService guideService;
+
+    @Autowired
+    private TravelService travelService;
+
+    @Autowired
+    private UTService utService;
 //    @RequestMapping("/admin")
 //    public ModelAndView mShift(HttpSession session) {
 //        ModelAndView result = new ModelAndView();
@@ -172,6 +184,15 @@ public class IndexController {
         return result;
     }
 
+    @RequestMapping("/toEditTravel/{id}")
+    public ModelAndView toEditTravel(@PathVariable int id) {
+        ModelAndView result = new ModelAndView();
+        Travel travel =travelService.findById(id);
+        result.setViewName("travel/edittravel");//转入线路界面
+        result.addObject("travel",travel);
+        return result;
+    }
+
     @RequestMapping("/toGuide")
     public ModelAndView toGuide() {
         ModelAndView result = new ModelAndView();
@@ -202,6 +223,27 @@ public class IndexController {
         return result;
     }
 
+    @RequestMapping("/toLineUser/{id}")
+    public ModelAndView toLineUser(@PathVariable int id) {
+        ModelAndView result = new ModelAndView();
+//        List<User> users =  utService.findByTid(id);
+        result.setViewName("travel/lineUser");//转入线路界面
+        result.addObject("id",id);
+        return result;
+    }
+
+    @RequestMapping("/toUserList")
+    public ModelAndView toUserList() {
+        ModelAndView result = new ModelAndView();
+        result.setViewName("user/userList");//转入线路界面
+        return result;
+    }
+    @RequestMapping("/toAdmin")
+    public ModelAndView toAdmin() {
+        ModelAndView result = new ModelAndView();
+        result.setViewName("user/adminList");//转入线路界面
+        return result;
+    }
 
 
     @RequestMapping("/toCeshi")

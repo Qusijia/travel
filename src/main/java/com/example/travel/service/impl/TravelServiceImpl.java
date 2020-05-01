@@ -1,6 +1,7 @@
 package com.example.travel.service.impl;
 
 import com.example.travel.entity.Travel;
+import com.example.travel.entity.Travel_Guide;
 import com.example.travel.mapper.TravelMapper;
 import com.example.travel.service.TravelService;
 import com.example.travel.tool.GuideToTravel;
@@ -104,6 +105,21 @@ public class TravelServiceImpl implements TravelService {
     @Override
     public void delTravelAndGuide(int id) {
         travelMapper.delTravelAndGuide(id);
+    }
+
+    @Override
+    public int saveTravelGuid(Travel_Guide t) {
+        return travelMapper.saveTravelGuid(t);
+    }
+
+    @Override
+    public Travel findNotById(Travel t) {
+        return travelMapper.findNotById(t);
+    }
+
+    @Override
+    public void delTravelAndMGuide(int id, int gid) {
+        travelMapper.delTravelAndMGuide(id,gid);
     }
 
 

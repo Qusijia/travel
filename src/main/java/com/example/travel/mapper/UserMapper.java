@@ -16,8 +16,11 @@ public interface UserMapper {
     @Select("SELECT * FROM user WHERE name = #{name} AND password = #{password}")
     User get(String name,String password);
     //查询所有游客
-    @Select("SELECT * FROM user")
+    @Select("SELECT *   FROM user  WHERE  name  NOT IN ( SELECT  u.name  FROM   user  u  JOIN guide g ON u.name = g.name ) ")
       List<User> findAll() ;
+
+    @Select("SELECT * FROM user  WHERE name LIKE  CONCAT('%',#{query},'%') AND name  NOT IN ( SELECT  u.name  FROM   user  u  JOIN guide g ON u.name = g.name ) ")
+    List<User> findByContent(String query) ;
 
     //添加游客
     @Insert("INSERT INTO user (name,password,gender,age,phone,lim) values (#{name},#{password},#{gender},#{age},#{phone},#{lim})")
@@ -26,6 +29,9 @@ public interface UserMapper {
     //删除游客
     @Delete("DELETE FROM user  WHERE id=#{id}")
      void del(int id) ;
+    //删除游客对应的角色
+    @Delete("DELETE FROM user_role  WHERE uid=#{id}")
+    void delRole(int id) ;
 
     //通过id查找游客
     @Select("SELECT * FROM user WHERE id=#{id}")
@@ -49,4 +55,9 @@ public interface UserMapper {
     //添加客户
     @Insert("INSERT INTO user_role (uid,rid) values (#{uid},#{rid})")
     void addRole(int uid , int rid) ;
+    //查询某用户报名的线路
+    @Select("SELECT count(*) rows  FROM travel t JOIN user_travel ut ON t.id = ut.tid JOIN user u ON ut.uname = u.name WHERE u.id = #{id}")
+    int  findByUid(int id);
+
+
 }

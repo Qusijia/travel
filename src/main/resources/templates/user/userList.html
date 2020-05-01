@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="UTF-8">
+    <title>导游信息列表</title>
+
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}">
+    <script th:src="@{/lib/js/jquery-3.4.1.min.js}"></script>
+</head>
+
+<style>
+
+</style>
+
+
+<body>
+
+<div class="table">
+    <h2 class="tablename">用户信息列表</h2>
+    <div style="margin-left:400px">
+        <div class="layui-inline">
+            <input class="layui-input" name="query" placeholder="请输入搜素" id="query" autocomplete="off">
+        </div>
+        <button class="layui-btn layui-btn-sm" id="search">搜索</button>
+    </div>
+    <hr class="layui-bg-gray">
+
+    <br>
+    <a type="reset" class="layui-btn layui-btn-radius  layui-btn-primary layui-layout-right" th:href="@{/toAdmin}">管理管理员</a>
+    <table class="layui-hide" id="ut" lay-filter="ut"></table>
+</div>
+
+<script src="../layui/layui.js"></script>
+<!--行工具栏-->
+<script type="text/html" id="toolbar">
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+
+</script>
+<script th:inline="none">
+    layui.use(['table', 'jquery', 'layer', "form"], function () {
+        var table = layui.table;
+        var $ = layui.jquery;
+        var layer = layui.layer;
+        //渲染数据表格
+        table.render({
+            elem: '#ut' // elem: document.getElementById('selectlist')
+            , cellMinWidth: 80
+            , url: '/user/findAllPage' //数据接口
+            , page: true //开启分页
+            //   ,toolbar: 'default'
+            , id: 'ut'
+            , cols: [[ //表头
+                {field: 'id', title: 'ID', sort: true, fixed: 'left'},
+                {field: 'name', title: '姓名'},
+                {field: 'gender', title: '性别'},
+                {field: 'age', title: '年龄'},
+                {field: 'phone', title: '手机号码'},
+                {fixed: 'right',title: '操作', align: 'center', toolbar: '#toolbar'}
+            ]]
+        });
+
+
+        //行工具栏进行监听
+        table.on('tool(ut)', function (obj) {
+            var $ = layui.jquery;
+            var data = obj.data;
+            var layEvent = obj.event;
+
+            if (layEvent === 'del') {
+                layer.confirm('是否确认删除？', function(index) {
+                    var id = obj.data.id;
+                    $.ajax({
+                        url: 'user/delById/' + id,//删除
+                        type: 'POST',
+                        success: function (msg) {
+                            if (msg == '1') {
+                                obj.del(); //删除对应行（tr）的DOM结构
+                                layer.close(index);
+                                layer.msg("删除成功!", {
+                                    icon: 1,
+                                    time: 1000,
+                                    end: function () {
+                                        window.location.reload();
+                                    }
+                                });
+                            }else if (msg =='0'){
+                                layer.msg("该用户正在参团");
+                            }
+                        }
+                    });
+                });
+            }
+        });
+        //搜索提交监听
+        $('#search').on('click', function () {
+            var query = $("#query").val();
+            var queryType = $("#queryType option:selected").val();
+            table.reload('ut', {
+                method: 'get',
+                where: {query: query}, page: {curr: 1}
+            });
+        });
+    });
+</script>
+
+
+</body>
+
+</html>

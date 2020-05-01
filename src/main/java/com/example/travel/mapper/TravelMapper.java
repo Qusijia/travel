@@ -1,6 +1,7 @@
 package com.example.travel.mapper;
 
 import com.example.travel.entity.Travel;
+import com.example.travel.entity.Travel_Guide;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
@@ -50,7 +51,6 @@ public interface TravelMapper {
 
 
     //查询导游负责线路统计信息
-    //查询用户参加的路线
     @Select("SELECT * FROM travel t JOIN travel_guide ut ON t.id = ut.tid WHERE ut.gid= #{gid}")
     List<Travel> LineFrom(int gid);
 
@@ -61,6 +61,17 @@ public interface TravelMapper {
     //删除线路关联的导游负责
     @Delete("DELETE FROM travel_guide WHERE tid=#{id}")
     void delTravelAndGuide(int id) ;
+
+    //添加导游-线路数据
+    @Insert("INSERT INTO travel_guide (tid,gid) VALUES(#{tid},#{gid})")
+    int saveTravelGuid(Travel_Guide t);
+
+    @Select("SELECT * FROM travel WHERE name=#{name} AND line=#{line} AND day=#{day} AND money=#{money}")
+    Travel findNotById(Travel t);
+
+    //删除线路关联的指定导游负责
+    @Delete("DELETE FROM travel_guide WHERE tid=#{id}  AND gid=#{gid}")
+    void delTravelAndMGuide(int id,int gid) ;
 
 }
 

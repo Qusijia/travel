@@ -2,6 +2,7 @@ package com.example.travel.service.impl;
 
 import com.example.travel.entity.Travel;
 import com.example.travel.entity.UT;
+import com.example.travel.entity.User;
 import com.example.travel.mapper.UTMapper;
 import com.example.travel.service.UTService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,5 +54,10 @@ public class UTServiceImpl implements UTService {
     @Override
     public List selectAll() {
         return utMapper.selectAll();
+    }
+
+    @Override
+    public List<User> findByTid(int id) {
+        return utMapper.findByTid(id);
     }
 }

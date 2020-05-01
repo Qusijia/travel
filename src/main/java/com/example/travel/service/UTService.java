@@ -2,9 +2,7 @@ package com.example.travel.service;
 
 import com.example.travel.entity.Travel;
 import com.example.travel.entity.UT;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Select;
+import com.example.travel.entity.User;
 
 import java.util.List;
 
@@ -33,4 +31,8 @@ public interface UTService {
 
     //后台报表查询
     List selectAll();
+
+
+    //查询某线路的报名用户
+    List<User> findByTid(int id) ;
 }

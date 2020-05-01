@@ -1,6 +1,7 @@
 package com.example.travel.service;
 
 import com.example.travel.entity.Travel;
+import com.example.travel.entity.Travel_Guide;
 import com.example.travel.tool.GuideToTravel;
 
 import java.util.List;
@@ -50,4 +51,12 @@ public interface TravelService {
 
     //删除线路关联的导游负责
     void delTravelAndGuide(int id) ;
+
+    //添加导游-线路数据
+    int saveTravelGuid(Travel_Guide t);
+
+    Travel findNotById(Travel t);
+
+    //删除线路关联的指定导游负责
+    void delTravelAndMGuide(int id,int gid) ;
 }

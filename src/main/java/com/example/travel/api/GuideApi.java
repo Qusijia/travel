@@ -1,8 +1,8 @@
 package com.example.travel.api;
 
 import com.example.travel.entity.Guide;
+import net.sf.json.JSONArray;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 import java.util.Map;
@@ -26,7 +26,7 @@ public interface GuideApi {
 //    List<Guide> findByContent(@RequestParam String str,@RequestParam String id);
 
     @GetMapping("/guide/findBySelect")
-    ModelAndView findBySelect();
+    JSONArray findBySelect();
 
     //根据id删除导游信息
     @PostMapping("/guide/del/{id}")

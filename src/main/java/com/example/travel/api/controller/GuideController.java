@@ -8,9 +8,9 @@ import com.example.travel.service.TravelService;
 import com.example.travel.service.UserService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import net.sf.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
@@ -77,11 +77,10 @@ public class GuideController implements GuideApi {
 //    }
 
     @Override
-    public ModelAndView findBySelect() {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("guides",guideService.findSelect());
-        modelAndView.addObject("aa","aa");
-        return modelAndView;
+    public JSONArray  findBySelect() {
+        JSONArray jsonArray = JSONArray.fromObject(guideService.findSelect());
+        return jsonArray;
+
     }
 
     @Override

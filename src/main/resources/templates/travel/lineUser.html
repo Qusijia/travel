@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="UTF-8">
+    <title>参团用户列表</title>
+
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}">
+<!--    <script th:src="@{/lib/js/jquery-3.4.1.min.js}"></script>-->
+
+</head>
+
+<style>
+
+</style>
+
+
+
+<body>
+
+<div class="table">
+    <h2 class="tablename">参团用户信息表</h2>
+    <hr class="layui-bg-gray">
+    <table class="layui-hide" id="ut" lay-filter="ut"></table>
+    <input type="text" name="tid" th:value="${id}"  id="tid" hidden  >
+</div>
+
+<script src="../layui/layui.js"></script>
+
+<script th:inline="none">
+
+    layui.use(['table', 'jquery', 'layer', "form"], function () {
+        var table = layui.table;
+         var $ = layui.jquery;
+         var tid= document.getElementById("tid").value;
+        //渲染数据表格
+        table.render({
+            elem: '#ut' // elem: document.getElementById('selectlist')
+            , cellMinWidth: 80
+            , url: '/ut/LineUser/'+tid //数据接口
+            , page: true
+            , id: 'ut'
+            , cols: [[ //表头
+                {field: 'id', title: 'ID', sort: true, fixed: 'left'},
+                {field: 'name', title: '用户名称'},
+                {field: 'age', title: '年龄'},
+                {field: 'gender', title: '性别'},
+                {field: 'phone', title: '手机号码'}
+                // {fixed: 'right',title: '操作', align: 'center', toolbar: '#toolbar'}
+            ]]
+        });
+
+    });
+</script>
+
+
+</body>
+
+</html>

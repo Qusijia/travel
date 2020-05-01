@@ -17,8 +17,8 @@ public interface TravelApi {
     List<Travel> findAll();
 
     //添加线路
-    @PostMapping("/travel/save")
-    String save(@RequestBody Travel t ,@RequestParam(value = "service", defaultValue = "") String  service);
+    @PostMapping("/travel/save/{service}")
+    String save(@RequestBody Travel t ,@PathVariable int  service);
 
     //删除线路
     @PostMapping("/travel/del/{id}")
@@ -29,8 +29,8 @@ public interface TravelApi {
     Travel findById(@PathVariable int id);
 
     //修改路线
-    @PatchMapping("/travel/modify")
-    void modify(@RequestBody Travel t);
+    @PostMapping("/travel/modify")
+    String modify(@RequestBody Travel t);
 
     //查询用户参加的路线
     @GetMapping("/travel/findByname")

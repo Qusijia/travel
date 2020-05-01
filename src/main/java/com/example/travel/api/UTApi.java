@@ -44,6 +44,8 @@ public interface UTApi {
     @GetMapping("/ut/selectAll")
     List selectAll();
 
-
+    @GetMapping("/ut/LineUser/{tid}")
+    //查询某线路的报名用户
+    Map<String, Object> findByTid( @PathVariable int tid ,@RequestParam int page, @RequestParam int limit ) ;
 
 }

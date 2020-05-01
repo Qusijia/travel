@@ -80,16 +80,6 @@
             <ul class="layui-nav layui-nav-tree"  lay-filter="test">
                 <li class="layui-nav-item layui-nav-itemed">
                     <dd class="main_left"> <a  data-src="/toTravelList" target="_top">线路信息</a>
-
-<!--                    <dl class="layui-nav-child">-->
-<!--                        <dd class="main_left"><a  data-src="/toTravelList" target="_top">线路信息</a></dd>-->
-<!--&lt;!&ndash;                        <dd class="main_left"><a  data-src="/visitor" target="_top">列表二</a></dd>&ndash;&gt;-->
-<!--&lt;!&ndash;                        <dd class="main_left"><a  data-src="/visitor" target="_top">列表三</a></dd>&ndash;&gt;-->
-<!--                        <div shiro:hasPermission="add">-->
-<!--                            <dd class="main_left"><a  data-src="/visitor" target="_top">超链接</a></dd>-->
-<!--                        </div>-->
-<!--                    </dl>-->
-
                 </li>
                 <li class="layui-nav-item">
                     <a href="javascript:;">导游信息</a>
@@ -102,7 +92,22 @@
                         <dd class="main_left"><a  data-src="/test" target="_top">超链接</a></dd>
                     </dl>
                 </li>
-                <li class="layui-nav-item"><a href="/visitor" target="_top">云市场</a></li>
+                <shiro:hasPermission name="user">
+                <li class="layui-nav-item">
+                    <a href="javascript:;">信息管理</a>
+                    <dl class="layui-nav-child">
+                        <dd class="main_left"><a data-src="/toUserList" target="_top">用户管理</a></dd>
+                        <dd class="main_left"><a  data-src="toCeshi" target="_top">报名情况</a></dd>
+                        <dd class="main_left"><a  data-src="/test" target="_top">超链接</a></dd>
+                    </dl>
+                </li>
+                </shiro:hasPermission>
+                <li class="layui-nav-item">
+
+                    <dd class="main_left"><a href="/toUserList" target="_top">用户管理</a>
+
+                </li>
+
                 <li class="layui-nav-item"><a href="/visitor" target="_top">发布商品</a></li>
             </ul>
         </div>

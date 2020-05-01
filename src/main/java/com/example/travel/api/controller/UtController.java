@@ -3,9 +3,12 @@ package com.example.travel.api.controller;
 import com.example.travel.api.UTApi;
 import com.example.travel.entity.Travel;
 import com.example.travel.entity.UT;
+import com.example.travel.entity.User;
 import com.example.travel.service.UTService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
@@ -17,11 +20,12 @@ import java.util.Map;
  * @create 05 - 21:44
  */
 
-@Controller
+@RestController
 public class UtController implements UTApi {
 
     @Autowired
     private UTService utService;
+
     @Override
     public List<UT> findAll() {
         return utService.findAll();
@@ -67,5 +71,24 @@ public class UtController implements UTApi {
     @Override
     public List selectAll() {
         return utService.selectAll();
+    }
+
+    @Override
+    public Map<String, Object> findByTid(int tid , int page, int limit) {
+
+        System.out.println("findByTidfindByTidfindByTidfindByTid");
+        PageHelper.startPage(page,limit);
+        List<User> users =  utService.findByTid(tid);
+        PageInfo<User> userPageInfo = new PageInfo<User>(users);
+        List<User> userList = userPageInfo.getList();
+
+        Map<String,Object> resultMap = new HashMap<String,Object>();
+        resultMap.put("code",0);
+        resultMap.put("msg","");
+        resultMap.put("count",userPageInfo.getTotal());
+        resultMap.put("data",userList);
+
+        return resultMap;
+
     }
 }

@@ -3,6 +3,7 @@ package com.example.travel.api.controller;
 import com.example.travel.api.TravelApi;
 import com.example.travel.entity.Guide;
 import com.example.travel.entity.Travel;
+import com.example.travel.entity.Travel_Guide;
 import com.example.travel.service.GuideService;
 import com.example.travel.service.TravelService;
 import com.example.travel.tool.GuideToTravel;
@@ -35,9 +36,26 @@ public class TravelController implements TravelApi {
     }
 
     @Override
-    public String save( Travel t , String  service) {
-            System.out.println("  --"+service+"--  ");
-        travelService.save(t);
+    public String save( Travel t , int  service) {
+        if(service != 0 ){
+            Guide guide = guideService.findById(service);
+            int lev = guide.getLev();//获取导游等级  最多带线 1：2条
+            List<GuideToTravel> travels =travelService.LineFrom(service);
+
+            if(lev == 1){
+                if(travels.size()>=2){
+                    return "0";//该导游已达到最大带团数，请选择别的导游
+                }
+            }
+
+            travelService.save(t);
+            Travel travel = travelService.findNotById(t);
+            travelService.saveTravelGuid(new Travel_Guide(travel.getId(),service));
+        }else{
+            travelService.save(t);
+
+        }
+
         return "1";
     }
 
@@ -59,8 +77,11 @@ public class TravelController implements TravelApi {
     }
 
     @Override
-    public void modify(Travel t) {
+    public String modify(Travel t ) {
+        System.out.println("modifymodifyTravelTravelmodify");
+        System.out.println(t);
         travelService.modify(t);
+        return "1";
     }
 
     @Override

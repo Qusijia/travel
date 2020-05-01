@@ -12,7 +12,7 @@ public interface UserService {
 
     //查询所有游客
 
-    List<User> findAll() ;
+    List<User> findAll(String query) ;
 
     //添加游客
 
@@ -43,5 +43,8 @@ public interface UserService {
     List<String> getPermission(int uid);
     //添加角色
     void addRole(int uid,String phone) ;
+
+    //查询某用户报名的线路
+    int findByUid(int id);
 
 }
