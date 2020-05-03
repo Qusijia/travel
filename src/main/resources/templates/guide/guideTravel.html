@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="UTF-8">
+    <title>线路报表</title>
+</head>
+<link rel="stylesheet" th:href="@{/layui/css/layui.css}">
+<script th:src="@{/lib/js/jquery-3.4.1.min.js}"></script>
+<body>
+<input type="text" name="tid" th:value="${id}"  id="tid" hidden  >
+<table class="layui-hide" id="ut" lay-filter="ut"></table>
+
+<script src="../layui/layui.js"></script>
+<!--行工具栏-->
+<script type="text/html" id="toolbar">
+    <a class="layui-btn layui-btn-xs" lay-event="sign">报名</a>
+</script>
+<script th:inline="none">
+    layui.use(['table', 'jquery', 'layer', "form"], function () {
+        var table = layui.table;
+        var $ = layui.jquery;
+        var tid= document.getElementById("tid").value;
+        //渲染数据表格
+        table.render({
+            elem: '#ut' // elem: document.getElementById('selectlist')
+            , cellMinWidth: 80
+            , url: '/travel/guideLineFrom/'+tid //数据接口
+            , page: true //开启分页
+            , id: 'ut'
+            , cols: [[ //表头
+                {field: 'id', title: 'ID', sort: true, fixed: 'left'},
+                {field: 'name', title: '线路名称'},
+                {field: 'line', title: '具体线路'},
+                {field: 'day', title: '所需天数'},
+                {field: 'money', title: '所需费用'},
+                {field: 'num', title: '报名人数'},
+                {fixed: 'right', title: '操作', align: 'center', toolbar: '#toolbar'}
+            ]]
+        });
+
+        //行工具栏进行监听
+        table.on('tool(ut)', function (obj) {
+            var $ = layui.jquery;
+            var data = obj.data;
+            var layEvent = obj.event;
+            if (layEvent === 'sign') {
+                layer.confirm('是否确认报名？', function(index) {
+                    obj.del(); //删除对应行（tr）的DOM结构
+                    layer.close(index);
+                    $.ajax({
+                        url: '/ut/add',//退选
+                        data: JSON.stringify(data),
+                        contentType : 'application/json',
+                        type: 'POST',
+                        success: function (msg) {
+                            if (msg == '1') {
+                                layer.msg("报名成功!", {
+                                    icon: 1,
+                                    time: 1000,
+                                    end: function () {
+                                        window.location.reload();
+                                    }
+                                });
+                            }
+                        }
+                    });
+                    //layer.msg("报名成功!");
+                });
+            }
+        });
+
+    });
+
+</script>
+
+
+</body>
+
+</html>
+
