@@ -3,6 +3,7 @@ package com.example.travel.mapper;
 import com.example.travel.entity.Travel;
 import com.example.travel.entity.UT;
 import com.example.travel.entity.User;
+import com.example.travel.tool.reportFrom;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
@@ -44,8 +45,9 @@ public interface UTMapper {
     List selectMoney();
 
     //后台报表查询
-    @Select("SELECT tid,tname,COUNT(*) count,SUM(money) money  FROM user_travel GROUP BY tid ORDER BY tid")
-    List selectAll();
+//    @Select("SELECT tid,tname,COUNT(*) count,SUM(money) money  FROM user_travel GROUP BY tid ORDER BY tid")
+    @Select("SELECT tname name,COUNT(*) num  FROM user_travel GROUP BY tid ORDER BY tid")
+    List<reportFrom> selectAll();
 
 
     //查询某线路的报名用户

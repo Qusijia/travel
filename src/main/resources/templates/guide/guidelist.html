@@ -45,7 +45,7 @@
 <script src="../layui/layui.js"></script>
 <!--行工具栏-->
 <script type="text/html" id="toolbar">
-    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail" >查看</a>
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail" >负责线路</a>
     <shiro:hasPermission name="update-guide">
 
         <a class="layui-btn layui-btn-xs" lay-event="edit" id="edit">编辑</a>
@@ -88,12 +88,9 @@
             var layEvent = obj.event;
 
             if (layEvent === 'detail') {
-                // layer.confirm('是否确认报名？', function(index) {
-                //     obj.del(); //删除对应行（tr）的DOM结构
-                //     layer.close(index);
+                    // layer.msg("查看成功!");
+                location.href = "/toGuideTravel/"+data.id;//转入后天
 
-                    layer.msg("查看成功!");
-                // });
             } else if (layEvent === 'edit'){
                 layer.msg("编辑成功!");
                     // $.ajax({
@@ -119,7 +116,7 @@
                 layer.confirm('是否确认删除？', function(index) {
                     var id = obj.data.id;
                     $.ajax({
-                        url: 'guide/del/' + id,//退选
+                        url: 'guide/del/' + id,
                         type: 'POST',
                         success: function (msg) {
                             if (msg == '1') {

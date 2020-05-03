@@ -5,6 +5,7 @@ import com.example.travel.entity.User_Role;
 import com.example.travel.mapper.GuideMapper;
 import com.example.travel.mapper.UserMapper;
 import com.example.travel.service.UserService;
+import com.example.travel.tool.UserRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,14 +29,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> findAll(String query) {
         List<User> users = new ArrayList<User>();
-        if(!query.equals("")){
-            System.out.println("findByContentfindByContentfindByContentfindByContent");
-            users=userMapper.findByContent(query);
-        }else {
-            System.out.println("findAllfindAllfindAll");
-            users = userMapper.findAll();
-
-        }
+//        if(!query.equals("")){
+//            System.out.println("findByContentfindByContentfindByContentfindByContent");
+//            users=userMapper.findByContent(query);
+//        }else {
+//            System.out.println("findAllfindAllfindAll");
+//            users = userMapper.findAll();
+//
+//        }
 
         return users;
     }
@@ -89,5 +90,30 @@ public class UserServiceImpl implements UserService {
     @Override
     public int  findByUid(int id) {
         return userMapper.findByUid(id);
+    }
+
+    @Override
+    public void delRole(int id) {
+        userMapper.delRole(id);
+    }
+
+    @Override
+    public void updateRole(int uid, int rid) {
+        userMapper.addRole(uid,rid);
+    }
+
+    @Override
+    public List<UserRole> findAllR(String query) {
+        List<UserRole> users = new ArrayList<UserRole>();
+        if(!query.equals("")){
+            System.out.println("findByContentfindByContentfindByContentfindByContent");
+            users=userMapper.findByContent(query);
+        }else {
+            System.out.println("findAllfindAllfindAll");
+            users = userMapper.findAll();
+
+        }
+
+        return users;
     }
 }

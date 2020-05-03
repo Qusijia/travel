@@ -3,6 +3,7 @@ package com.example.travel.service;
 import com.example.travel.entity.Travel;
 import com.example.travel.entity.UT;
 import com.example.travel.entity.User;
+import com.example.travel.tool.reportFrom;
 
 import java.util.List;
 
@@ -30,7 +31,7 @@ public interface UTService {
     List selectMoney();
 
     //后台报表查询
-    List selectAll();
+    List<reportFrom> selectAll();
 
 
     //查询某线路的报名用户

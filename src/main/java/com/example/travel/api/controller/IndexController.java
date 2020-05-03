@@ -232,10 +232,26 @@ public class IndexController {
         return result;
     }
 
+
+    @RequestMapping("/toGuideTravel/{id}")
+    public ModelAndView toGuideTravel(@PathVariable int id) {
+        ModelAndView result = new ModelAndView();
+//        List<User> users =  utService.findByTid(id);
+        result.setViewName("guide/guideTravel");//转入线路界面
+        result.addObject("id",id);
+        return result;
+    }
     @RequestMapping("/toUserList")
     public ModelAndView toUserList() {
         ModelAndView result = new ModelAndView();
         result.setViewName("user/userList");//转入线路界面
+        return result;
+    }
+
+    @RequestMapping("/toreportFrom")
+    public ModelAndView toreportFrom() {
+        ModelAndView result = new ModelAndView();
+        result.setViewName("user/reportFrom");//转入线路界面
         return result;
     }
     @RequestMapping("/toAdmin")

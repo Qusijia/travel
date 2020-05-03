@@ -36,4 +36,8 @@ public interface UserApi {
     @PostMapping("/user/delById/{id}")
     String delById(@PathVariable int id);
 
+    //角色修改
+    @PostMapping("/user/role/{id}")
+    String updateRole(@PathVariable int id, String  role);
+
 }

@@ -5,6 +5,7 @@ import com.example.travel.entity.Travel;
 import com.example.travel.entity.UT;
 import com.example.travel.entity.User;
 import com.example.travel.service.UTService;
+import com.example.travel.tool.reportFrom;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,9 +70,22 @@ public class UtController implements UTApi {
     }
 
     @Override
-    public List selectAll() {
+    public List<reportFrom> selectAll() {
         return utService.selectAll();
     }
+
+//    // 提供数据的接口用于显示
+//    @GetMapping("/list")
+//    @ResponseBody
+//    public List<Product> productList() {
+//        return Arrays.asList(
+//                new Product("酸奶", 4),
+//                new Product("大食桶", 5),
+//                new Product("安慕希", 8),
+//                new Product("津威", 2),
+//                new Product("汉堡包", 10)
+//        );
+//    }
 
     @Override
     public Map<String, Object> findByTid(int tid , int page, int limit) {

@@ -3,7 +3,7 @@
       xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
 <head>
     <meta charset="UTF-8">
-    <title>导游信息列表</title>
+    <title>用户信息列表</title>
 
     <link rel="stylesheet" th:href="@{/layui/css/layui.css}">
     <script th:src="@{/lib/js/jquery-3.4.1.min.js}"></script>
@@ -27,11 +27,30 @@
     <hr class="layui-bg-gray">
 
     <br>
-    <a type="reset" class="layui-btn layui-btn-radius  layui-btn-primary layui-layout-right" th:href="@{/toAdmin}">管理管理员</a>
+<!--        <div>-->
+<!--            <a type="reset" class="layui-btn layui-btn-radius  layui-btn-primary layui-layout-right" th:href="@{/toAdmin}">权限管理</a>-->
+<!--        </div>-->
     <table class="layui-hide" id="ut" lay-filter="ut"></table>
 </div>
-
+<form class="layui-form">
+<div class="layui-form-item" id="redio" hidden="hidden">
+    <label class="layui-form-label">角色</label>
+    <div class="layui-input-block">
+        <input type="radio" name="role" value="游客" title="游客">
+        <input type="radio" name="role" value="管理员" title="管理员" >
+    </div>
+<!--    <button class="layui-btn layui-btn-sm" ay-filter="qdRole" id="qdRole">确定</button>-->
+</div>
+</form>
 <script src="../layui/layui.js"></script>
+<!--头工具栏-->
+<script type="text/html" id="toolbarDemo">
+    <div class="layui-btn-container">
+        <button class="layui-btn layui-btn-sm " lay-event="role">权限管理</button>
+<!--        <button class="layui-btn layui-btn-sm" lay-event="delete">删除</button>-->
+<!--        <button class="layui-btn layui-btn-sm" lay-event="update">编辑</button>-->
+    </div>
+</script>
 <!--行工具栏-->
 <script type="text/html" id="toolbar">
         <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
@@ -42,17 +61,21 @@
         var table = layui.table;
         var $ = layui.jquery;
         var layer = layui.layer;
+
         //渲染数据表格
         table.render({
             elem: '#ut' // elem: document.getElementById('selectlist')
             , cellMinWidth: 80
             , url: '/user/findAllPage' //数据接口
             , page: true //开启分页
-            //   ,toolbar: 'default'
+              ,toolbar: '#toolbarDemo'
+            ,totalRow: true //开启合计行
             , id: 'ut'
             , cols: [[ //表头
+                {type: 'checkbox', fixed: 'left'},
                 {field: 'id', title: 'ID', sort: true, fixed: 'left'},
                 {field: 'name', title: '姓名'},
+                {field: 'roleName', title: '角色'},
                 {field: 'gender', title: '性别'},
                 {field: 'age', title: '年龄'},
                 {field: 'phone', title: '手机号码'},
@@ -60,6 +83,62 @@
             ]]
         });
 
+        var lists;
+        //监听头工具栏事件
+        table.on('toolbar(ut)', function(obj){
+            var checkStatus = table.checkStatus(obj.config.id)
+                ,data = checkStatus.data; //获取选中的数据
+            lists=data;
+            switch(obj.event){
+                case 'role':
+                    if(data.length === 0){
+                        layer.msg('请选择一行');
+                    } else {
+                        //页面层-自定义
+                        layer.open({
+                            type: 1,
+                            content: $("#redio"),
+                            area: 'auto'
+                            ,btn: ['确定', '退出']
+                            ,yes: function(index, layero) {
+                                // alert( $("input[name='role']:checked").val());
+                                var _data='role='+ $("input[name='role']:checked").val();
+                                for(var i=0;i<data.length;i++) {
+                                    var id = data[i].id;
+                                    $.ajax({
+                                        type: "post",
+                                        data:	_data,
+                                        url: 'user/role/' + id,
+                                        success: function (msg) {
+                                            if (msg == '1') {
+
+                                                // layer.msg("修改成功");
+                                                window.location.reload();
+                                            }
+                                        }
+
+                                    });
+                                }
+                                layer.close(index);
+
+                            }
+                    ,btn2: function(index, layero){
+                            //按钮【按钮二】的回调
+
+                            //return false 开启该代码可禁止点击该按钮关闭
+                        }
+                    ,cancel: function(){
+                            //右上角关闭回调
+
+                            //return false 开启该代码可禁止点击该按钮关闭
+                        }
+
+                        });
+                    }
+
+                    break;
+            };
+        });
 
         //行工具栏进行监听
         table.on('tool(ut)', function (obj) {
@@ -101,6 +180,26 @@
                 where: {query: query}, page: {curr: 1}
             });
         });
+
+        // form.on('submit(qdRole)', function (data) {
+        //     alert("qdRoleqdRoleqdRole");
+        //     for(var i=0;i<lists.length;i++) {
+        //        var id = lists[i].id;
+        //
+        //           $.ajax({
+        //             type: "post",
+        //               url: 'user/role/' + id ,
+        //               success: function (msg) {
+        //                   if (msg == '1') {
+        //                         layer.msg("11111111");
+        //                   }
+        //               }
+        //           });
+        //     }
+        //
+        //     return false;
+        // });
+
     });
 </script>
 

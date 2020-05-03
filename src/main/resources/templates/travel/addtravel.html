@@ -52,7 +52,7 @@
 
                 <label class="layui-form-label">线路地点:</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="name" lay-verify="name"   placeholder="请填写姓名" autocomplete="off" class="layui-input stu_name">
+                    <input type="text" name="name" lay-verify="name"   placeholder="请填写名称" autocomplete="off" class="layui-input stu_name">
                 </div>
 
             </div>
@@ -61,16 +61,10 @@
             <input type="text" name="id"   hidden="hidden">
 
             <div class="layui-form-item">
-<!--                <div class="layui-inline">-->
-<!--                    <label class="layui-form-label">具体线路:</label>-->
-<!--                    <div class="layui-input-inline">-->
-<!--                        <input type="text" name="line"   required class="layui-input ">-->
-<!--                    </div>-->
-<!--                </div>-->
-                <div class="layui-form-item layui-form-text">
+                <div class="layui-form-item ">
                     <label class="layui-form-label">文本域</label>
                     <div class="layui-input-block">
-                        <textarea placeholder="请输入内容"  name="line" class="layui-textarea"></textarea>
+                        <textarea placeholder="请输入具体线路信息"  name="line" class="layui-textarea"></textarea>
                     </div>
                 </div>
 
@@ -81,15 +75,6 @@
                     </div>
                 </div>
 
-
-                <!--                <div class="layui-form-item">-->
-                <!--                    <label class="layui-form-label">等级:</label>-->
-                <!--                    <div class="layui-input-block">-->
-                <!--                        <input type="radio" name="lev" value="1" title="一级" checked="checked">-->
-                <!--                        <input type="radio" name="lev" value="2" title="二级">-->
-
-                <!--                    </div>-->
-                <!--                </div>-->
                 <div class="layui-form-item">
                     <label class="layui-form-label">所需费用:</label>
                     <div class="layui-input-inline">
@@ -101,11 +86,7 @@
                     <label class="layui-form-label">负责导游:</label>
                     <<div class="layui-input-inline">
                     <select id="service" name="service" lay-verify="required"  class="select"  >
-<!--                        <option value="0" >请选择</option>-->
-                        <option th:selected="${g1.id}"
-                                th:each="g1:${guides }" th:value="${g1.id}"
-                                th:text="${g1.name}" >
-                        </option>
+                        <option value="0" >请选择</option>
                     </select>
                 </div>
 
@@ -153,7 +134,7 @@
 
             name:[
                 /^[\S]{2,}$/
-                ,'用户名长度必须大于2，且不能出现空格'
+                ,'长度必须大于2，且不能出现空格'
             ]
             ,content: function(value){
                 layedit.sync(editIndex);
@@ -164,7 +145,7 @@
             // var index  = layer.load(1);
             var service = $("#service option:selected").val();
             $.ajax({
-                url: '/travel/save',
+                url: '/travel/save/'+service,
                 data: JSON.stringify(data.field),//获取表单中对应的字段name名字以及对应的值
                 contentType : 'application/json',
                 type: 'POST',//规定请求的类型（GET 或 POST）。
@@ -179,6 +160,8 @@
                         });
 
                         location.href = "/toTravelList";//转入后天
+                    }else if (data =='0'){
+                        layer.msg("该导游已达到最大带团数，请选择别的导游");
                     }
                 }
             })
@@ -188,44 +171,32 @@
 
         $.ajax({
                 url: '/guide/findSelect',
-                dataType: 'json',
+                // dataType: 'json',
                 type: 'get',
                 success: function(data) {
-                    // if (data!== null) {
-                    //     $("#service").empty();
-                    //     //$("#service").append(new Option("请选择12", "0"));
-                    //     var content= '<option value="0">请选择章节</option>';
-                    //     $.each(data,function (i,val) {
-                    //
-                    //         content += '<option value="' + val['id'] + '">' + val['name'] + '</option>';
-                    //     });
-                    //     }
-                    // console.log(content);
-                    // layer.msg(content);
-                    // $("#service").append(content);
-                    //
-                    // //     $.each(result, function(index, item) {
-                    // //         $("#service").append("<option value="+item.id+">"+item.name+"</option>");
-                    // //     });
-                    // // } else {
-                    // //     $("#service").append(new Option("暂无数据", ""));
-                    // // }
-                    //
-                    // //重新渲染
-                    //
-                    // $('#service').trigger('change');
-                    form.render('select');
+                    if (data !== null) {
 
-                }
-            });
 
-        // layui.use('form',function(){
-        //
-        //     var form = layui.form;//注:这是1.0升级到2.0以后的写法,2.0以前的依旧是layui.form()带括号。
-        //
-        //     form.render();//这一步加上基
-        //
-        // });
+                        $("#service").empty();
+                        var content = '<option value="0">请选择导游</option>';
+
+                        for(var i=0;i<data.data.length;i++)
+                        {
+                            content += '<option value="' + data.data[i].id+ '">' + data.data[i].name + '</option>';
+                        }
+
+                        alert(data);
+                        // layer.msg(content);
+                        $("#service").append(content);
+                    }
+
+                        form.render('select');
+
+                    }
+
+
+        });
+
     });
 </script>
 

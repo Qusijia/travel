@@ -131,4 +131,24 @@ public class TravelController implements TravelApi {
 
         return resultMap;
     }
+
+    //查询某导游负责线路统计信息
+    @Override
+    public Map<String, Object> guideLinePage(int id, int page, int limit, String query) {
+        PageHelper.startPage(page,limit);
+        List<GuideToTravel> travels = travelService.LineFrom(id);
+        int  count = travels.size();
+        PageInfo<GuideToTravel> travelPageInfo = new PageInfo<GuideToTravel>(travels);
+        List<GuideToTravel> travelList = travelPageInfo.getList();
+
+        Map<String,Object> resultMap = new HashMap<String,Object>();
+        resultMap.put("code",0);
+        resultMap.put("msg","");
+        resultMap.put("count",count);
+        resultMap.put("data",travelList);
+
+        return resultMap;
+    }
+
+
 }

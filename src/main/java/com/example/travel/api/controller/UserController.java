@@ -3,6 +3,7 @@ package com.example.travel.api.controller;
 import com.example.travel.api.UserApi;
 import com.example.travel.entity.User;
 import com.example.travel.service.UserService;
+import com.example.travel.tool.UserRole;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,9 +51,12 @@ public class UserController implements UserApi {
     @Override
     public Map<String, Object> findAllPage(int page, int limit, String query) {
         PageHelper.startPage(page,limit);
-        List<User> users = userService.findAll(query);
-        PageInfo<User> userPageInfo = new PageInfo<User>(users);
-        List<User> userList = userPageInfo.getList();
+//        List<User> users = userService.findAll(query);
+//        PageInfo<User> userPageInfo = new PageInfo<User>(users);
+//        List<User> userList = userPageInfo.getList();
+        List<UserRole> users = userService.findAllR(query);
+        PageInfo<UserRole> userPageInfo = new PageInfo<UserRole>(users);
+        List<UserRole> userList = userPageInfo.getList();
 
         Map<String,Object> resultMap = new HashMap<String,Object>();
         resultMap.put("code",0);
@@ -77,5 +81,21 @@ public class UserController implements UserApi {
         }
 
 
+    }
+
+    @Override
+    public String updateRole(int id,String role) {
+        System.out.println("updateRoleupdateRoleupdateRole");
+        System.out.println("id:"+id+" role:"+role);
+        if(!role.equals("")){
+            userService.delRole(id);
+            if(role.equals("管理员")){
+                userService.updateRole(id,3);
+            }else if(role.equals("游客")){
+                userService.updateRole(id,1);
+            }
+        }
+
+        return "1";
     }
 }

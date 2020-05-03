@@ -88,10 +88,12 @@ public class GuideController implements GuideApi {
 
 
         Guide guide = guideService.findById(id);
+        User user = userService.findByName(guide.getName());
         System.out.println(travelService.LineFrom(id)+"  33333333   "+travelService.findByname(guide.getName()));
         if(travelService.LineFrom(id).size()==0 &&
                 travelService.findByname(guide.getName()).size()==0){
             guideService.del(id);
+            userService.del(user.getId());
             System.out.println("1111111111111");
             return "1";//删除
         }
