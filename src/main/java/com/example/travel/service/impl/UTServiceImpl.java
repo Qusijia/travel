@@ -5,6 +5,7 @@ import com.example.travel.entity.UT;
 import com.example.travel.entity.User;
 import com.example.travel.mapper.UTMapper;
 import com.example.travel.service.UTService;
+import com.example.travel.tool.LineTotal;
 import com.example.travel.tool.reportFrom;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -60,5 +61,10 @@ public class UTServiceImpl implements UTService {
     @Override
     public List<User> findByTid(int id) {
         return utMapper.findByTid(id);
+    }
+
+    @Override
+    public List<LineTotal> selectLineTotal() {
+        return utMapper.selectLineTotal();
     }
 }

@@ -48,4 +48,9 @@ public interface UTApi {
     //查询某线路的报名用户
     Map<String, Object> findByTid( @PathVariable int tid ,@RequestParam int page, @RequestParam int limit ) ;
 
+    @GetMapping("/ut/selectLineTotal")
+    //后台报表信息查询  @RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "limit", defaultValue = "10") int limit, @RequestParam(value = "queryType", defaultValue = "") String queryType, @RequestParam(value = "query", defaultValue = "") String query
+    public Map<String, Object> selectLineTotal();
+
+
 }

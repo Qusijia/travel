@@ -5,6 +5,7 @@ import com.example.travel.entity.Travel;
 import com.example.travel.entity.UT;
 import com.example.travel.entity.User;
 import com.example.travel.service.UTService;
+import com.example.travel.tool.LineTotal;
 import com.example.travel.tool.reportFrom;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -104,5 +105,14 @@ public class UtController implements UTApi {
 
         return resultMap;
 
+    }
+
+    @Override
+    public Map<String, Object> selectLineTotal() {
+        List<LineTotal> lineTotals =  utService.selectLineTotal();
+        Map<String,Object> resultMap = new HashMap<String,Object>();
+        resultMap.put("code",0);
+        resultMap.put("data",lineTotals);
+        return resultMap;
     }
 }

@@ -4,13 +4,27 @@
     <meta charset="UTF-8">
     <title>报表反馈</title>
 </head>
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}">
+<style>
+    .table{
+        width:1000px;
+        text-align: center;
+    }
+</style>
 <body>
 
 <!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
 <div id="main" style="width: 800px; height: 550px; margin: auto;"></div>
-
+<hr class="layui-bg-gray">
+<center>
+<div class="table">
+    <hr class="layui-bg-gray">
+    <table class="layui-hide" id="ut" lay-filter="ut"></table>
+</div>
+</center>
 <script th:src="@{/lib/js/jquery-3.4.1.min.js}"></script>
 <!--<script src="/js/echarts.min.js"></script>-->
+<script src="../layui/layui.js"></script>
 <script src="../echarts/echarts.min.js"></script>
 <script>
     var myChart = echarts.init(document.getElementById('main'));
@@ -63,5 +77,30 @@
         ]
     };
     myChart.setOption(option);
+</script>
+
+<script th:inline="none">
+
+    layui.use(['table', 'jquery', 'layer', "form"], function () {
+        var table = layui.table;
+        var $ = layui.jquery;
+        //渲染数据表格
+        table.render({
+            elem: '#ut' // elem: document.getElementById('selectlist')
+            , cellMinWidth: 80
+            , url: '/ut/selectLineTotal' //数据接口
+            // , page: true
+            , id: 'ut'
+            , cols: [[ //表头
+                {field: 'tid', title: 'ID', sort: true, fixed: 'left'},
+                {field: 'tname', title: '线路名称'},
+                {field: 'num', title: '报名人数'},
+                {field: 'money', title: '共计'}
+
+                // {fixed: 'right',title: '操作', align: 'center', toolbar: '#toolbar'}
+            ]]
+        });
+
+    });
 </script>
 </body>
