@@ -150,5 +150,29 @@ public class TravelController implements TravelApi {
         return resultMap;
     }
 
+    @Override
+    public String updateGuide(int id, int gid) {
+        if(travelService.LineNum(id)==0){//线路报名人数为0
+            if(gid != 0 ){
+                Guide guide = guideService.findById(gid);
+                int lev = guide.getLev();//获取导游等级  最多带线 1：2条
+                List<GuideToTravel> travels =travelService.LineFrom(gid);
+                if(lev == 1){
+                    if(travels.size()>=2){
+                        return "0";//该导游已达到最大带团数，请选择别的导游
+                    }
+                }
+                travelService.delTravelAndGuide(id);
+                travelService.saveTravelGuid(new Travel_Guide(id,gid));
+            }
+
+        }else{
+            return "2";//线路正在开展
+        }
+
+
+        return "1";//成功
+    }
+
 
 }

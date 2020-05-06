@@ -10,6 +10,7 @@ import com.example.travel.tool.reportFrom;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
@@ -51,6 +52,10 @@ public class UtController implements UTApi {
 
     @Override
     public String add( Travel travel ,  HttpSession session) {
+        UT ut = utService.findByUT(session.getAttribute("username").toString(),travel.getId());
+        if(!StringUtils.isEmpty(ut)){
+           return "2";//已报名
+        }
         utService.add(session.getAttribute("username").toString(),travel);
         return "1";
     }

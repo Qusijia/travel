@@ -46,10 +46,10 @@
             var layEvent = obj.event;
             if (layEvent === 'sign') {
                 layer.confirm('是否确认报名？', function(index) {
-                    obj.del(); //删除对应行（tr）的DOM结构
+                    // obj.del(); //删除对应行（tr）的DOM结构
                     layer.close(index);
                     $.ajax({
-                        url: '/ut/add',//退选
+                        url: '/ut/add',
                         data: JSON.stringify(data),
                         contentType : 'application/json',
                         type: 'POST',
@@ -62,6 +62,8 @@
                                         window.location.reload();
                                     }
                                 });
+                            }else if(msg == '2'){
+                                layer.msg("已报名!");
                             }
                         }
                     });

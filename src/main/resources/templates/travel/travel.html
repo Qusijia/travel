@@ -34,6 +34,19 @@
     </shiro:hasPermission>
     <table class="layui-hide" id="ut" lay-filter="ut"></table>
 </div>
+
+    <form  class="layui-form" >
+
+        <div class="layui-form-item"  id="redio" lay-filter="chapterRender"  hidden="hidden">
+            <label class="layui-form-label">负责导游:</label>
+            <div class="layui-input-block" id="service">
+<!--                <input type="checkbox" name="0" title="写作" checked>-->
+<!--                <input type="checkbox" name="like[read]" title="阅读" checked>-->
+<!--                <input type="checkbox" name="like[dai]" title="发呆">-->
+            </div>
+        </div>
+    </form>
+
 <script type="text/html" id="barDemo">
     <shiro:hasPermission name="retrieve">
         <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail" >查看</a>
@@ -50,6 +63,16 @@
 </script>
 
 <script src="../layui/layui.js"></script>
+<!--头工具栏-->
+<script type="text/html" id="toolbarDemo">
+    <div class="layui-btn-container">
+        <shiro:hasPermission name="update-travel">
+        <button class="layui-btn layui-btn-sm " lay-event="role">分配导游</button>
+        </shiro:hasPermission>
+        <!--        <button class="layui-btn layui-btn-sm" lay-event="delete">删除</button>-->
+        <!--        <button class="layui-btn layui-btn-sm" lay-event="update">编辑</button>-->
+    </div>
+</script>
 <!--行工具栏-->
 <script type="text/html" id="toolbar">
     <a class="layui-btn layui-btn-xs" lay-event="sign">报名</a>
@@ -65,6 +88,7 @@
     layui.use(['table', 'jquery', 'layer', "form"], function () {
         var table = layui.table;
         var $ = layui.jquery;
+        var form=layui.form;
         //渲染数据表格
         table.render({
             elem: '#ut' // elem: document.getElementById('selectlist')
@@ -72,7 +96,9 @@
             , url: '/travel/findAllPage' //数据接口
             , page: true //开启分页
             , id: 'ut'
+            ,toolbar: '#toolbarDemo'
             , cols: [[ //表头
+                {type: 'checkbox', fixed: 'left'},
                 {field: 'id', title: 'ID', sort: true, fixed: 'left'},
                 {field: 'name', title: '线路名称'},
                 {field: 'line', title: '具体线路'},
@@ -81,6 +107,76 @@
                 {fixed: 'right',title: '操作', align: 'center', toolbar: '#toolbar'}
             ]]
         });
+
+        var lists;
+        //监听头工具栏事件
+        table.on('toolbar(ut)', function(obj){
+            var checkStatus = table.checkStatus(obj.config.id)
+                ,data = checkStatus.data; //获取选中的数据
+            lists=data;
+            switch(obj.event){
+                case 'role':
+                    if(data.length === 0){
+                        layer.msg('请选择一行');
+                    } else {
+                        //页面层-自定义
+                        layer.open({
+                            type: 1,
+                            content: $("#redio"),
+                            area: 'auto'
+                            ,btn: ['确定', '退出']
+                            ,yes: function(index, layero) {
+                                // alert( $("input[name='role']:checked").val());
+                                var arr = new Array();
+                                $("input:checkbox[name='guide']:checked").each(function(i) {
+                                    arr[i] = $(this).val();
+                                });
+                               // alert(arr);
+                                // var _data='role='+ $("input[name='role']:checked").val();
+                                for(var i=0;i<data.length;i++) {
+                                    var id = data[i].id;
+                                    for(var j = 0,len=arr.length; j < len; j++)  {
+                                        var _data='gid='+ arr[i];
+                                        $.ajax({
+                                            type: "post",
+                                            data: _data,
+                                            url: 'travel/updateGuide/' + id,
+                                            success: function (msg) {
+                                                layer.close(index);
+                                                if (msg == '1') {
+                                                     layer.msg("修改成功");
+                                                    window.location.reload();
+                                                }else if(msg == '0'){
+                                                    layer.msg("该导游已达到最大带团数，请选择别的导游");
+                                                }else if (msg == '2'){
+                                                    layer.msg("线路正在开展");
+                                                }
+                                            }
+
+                                        });
+                                    }
+                                }
+
+
+                            }
+                            ,btn2: function(index, layero){
+                                //按钮【按钮二】的回调
+
+                                //return false 开启该代码可禁止点击该按钮关闭
+                            }
+                            ,cancel: function(){
+                                //右上角关闭回调
+
+                                //return false 开启该代码可禁止点击该按钮关闭
+                            }
+
+                        });
+                    }
+
+                    break;
+            };
+        });
+
         //行工具栏进行监听
         table.on('tool(ut)', function (obj) {
             var $ = layui.jquery;
@@ -138,6 +234,32 @@
                     });
                 });
             }
+        });
+
+        $.ajax({
+            url: '/guide/findSelect',
+            // dataType: 'json',
+            type: 'get',
+            success: function(data) {
+                if (data !== null) {
+                    $("#service").empty();
+                    var content = ' <input type="checkbox" name="guide" title="请选择" value="0" >';
+                    var content;
+                    for(var i=0;i<data.data.length;i++)
+                    {
+                        content += '<input type="checkbox" name="guide" value="' + data.data[i].id+ '"title="' + data.data[i].name + '">';
+                    }
+
+                    // alert(data);
+                    // layer.msg(content);
+                    $("#service").append(content);
+                }
+
+                form.render('checkbox');
+
+            }
+
+
         });
 
         //搜索提交监听

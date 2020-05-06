@@ -34,7 +34,7 @@ public interface UTMapper {
     Integer add(String uname, Travel t);
 
     //通过用户名和tid查找
-    @Select("SELECT * FROM user_travel WHERE uname=  #{name} AND tid=  #{tid}")
+    @Select("SELECT * FROM user_travel WHERE uname=  #{uname} AND tid=  #{tid}")
     UT findByUT(String uname,int tid);
 
     //线路报名排行
