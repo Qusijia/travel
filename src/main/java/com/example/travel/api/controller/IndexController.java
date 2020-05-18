@@ -38,26 +38,12 @@ public class IndexController {
 
     @Autowired
     private UTService utService;
-//    @RequestMapping("/admin")
-//    public ModelAndView mShift(HttpSession session) {
-//        ModelAndView result = new ModelAndView();
-//        result.setViewName("admin_manage");//转入后台管理页面
-//        result.addObject("name",session.getAttribute("name"));
-//        return result;
-//    }
-//
 
-//    @RequestMapping("/test")
-//    @ResponseBody
-//    public String test() {
-//        System.out.println("visitor visitor visitor visitor");
-//        return "1111111111========333333333333333-------------------55555555555555555";
-//    }
     @RequestMapping("/visitor")
     public ModelAndView sShift() {
         System.out.println("visitor visitor visitor visitor");
         ModelAndView result = new ModelAndView();
-        result.setViewName("test");//转入游客界面
+        result.setViewName("test");
         return result;
     }
     //退出登录
@@ -120,7 +106,7 @@ public class IndexController {
     @RequestMapping("/register")
     public ModelAndView register() {
         ModelAndView result = new ModelAndView();
-        result.setViewName("regist");//转入注册界面
+        result.setViewName("regist");
         return result;
     }
 
@@ -153,14 +139,14 @@ public class IndexController {
     public ModelAndView toUser(HttpSession session) {
         ModelAndView result = new ModelAndView();
         User user = userService.findByName(session.getAttribute("username").toString());
-        result.setViewName("user/user");//转入注册界面
+        result.setViewName("user/user");
         result.addObject("user",user);
         return result;
     }
     @RequestMapping("/toTravel")
     public ModelAndView toTravel() {
         ModelAndView result = new ModelAndView();
-        result.setViewName("user/user_travel");//转入注册界面
+        result.setViewName("user/user_travel");
         return result;
     }
 
@@ -173,14 +159,14 @@ public class IndexController {
     @RequestMapping("/toTravelList")
     public ModelAndView toTravelList() {
         ModelAndView result = new ModelAndView();
-        result.setViewName("travel/travel");//转入线路界面
+        result.setViewName("travel/travel");
         return result;
     }
 
     @RequestMapping("/toAddTravel")
     public ModelAndView toAddTravel() {
         ModelAndView result = new ModelAndView();
-        result.setViewName("travel/addtravel");//转入线路界面
+        result.setViewName("travel/addtravel");
         return result;
     }
 
@@ -188,7 +174,7 @@ public class IndexController {
     public ModelAndView toEditTravel(@PathVariable int id) {
         ModelAndView result = new ModelAndView();
         Travel travel =travelService.findById(id);
-        result.setViewName("travel/edittravel");//转入线路界面
+        result.setViewName("travel/edittravel");
         result.addObject("travel",travel);
         return result;
     }
@@ -196,14 +182,14 @@ public class IndexController {
     @RequestMapping("/toGuide")
     public ModelAndView toGuide() {
         ModelAndView result = new ModelAndView();
-        result.setViewName("guide/guidelist");//转入线路界面
+        result.setViewName("guide/guidelist");
         return result;
     }
 
     @RequestMapping("/toAddGuide")
     public ModelAndView toAddGuide() {
         ModelAndView result = new ModelAndView();
-        result.setViewName("guide/addguide");//转入线路界面
+        result.setViewName("guide/addguide");
         return result;
     }
 
@@ -211,7 +197,7 @@ public class IndexController {
     public ModelAndView toEditGuide(@PathVariable int id) {
         ModelAndView result = new ModelAndView();
         Guide guide = guideService.findById(id);
-        result.setViewName("guide/editguide");//转入线路界面
+        result.setViewName("guide/editguide");
         result.addObject("guide",guide);
         return result;
     }
@@ -244,20 +230,20 @@ public class IndexController {
     @RequestMapping("/toUserList")
     public ModelAndView toUserList() {
         ModelAndView result = new ModelAndView();
-        result.setViewName("user/userList");//转入线路界面
+        result.setViewName("user/userList");
         return result;
     }
 
     @RequestMapping("/toreportFrom")
     public ModelAndView toreportFrom() {
         ModelAndView result = new ModelAndView();
-        result.setViewName("user/reportFrom");//转入线路界面
+        result.setViewName("user/reportFrom");
         return result;
     }
     @RequestMapping("/toAdmin")
     public ModelAndView toAdmin() {
         ModelAndView result = new ModelAndView();
-        result.setViewName("user/adminList");//转入线路界面
+        result.setViewName("user/adminList");
         return result;
     }
 
